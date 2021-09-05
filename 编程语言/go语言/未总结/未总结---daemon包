@@ -1,0 +1,47 @@
+守护进程的实现：
+https://godoc.org/gopkg.in/sevlyar/go-daemon.v0#Context.Release
+https://zhuanlan.zhihu.com/p/146192035
+
+## go 程序以后台进程或daemon方式运行
+
+#### 区分两个概念
+
+**后台运行**：是指进程在操作系统中非显示运行，未关联到任何命令行终端或程序界面。这中方式运行的进程则称为`后台进程`，如未关联到任何终端的命令行程序进程。
+
+**daemon**：也叫`守护进程`，它首先是`后台运行`，然后它还有守护的职责。本文所指，是希望`守护进程`可以监视go服务程序进程的状态，若异常退出，可以自动重启服务程序。
+
+#### fork
+
+在go语言中无法很好的直接操作fork。而启动自身为一个子进程，也可以看做成是调用外部程序。最常用的应该是 exec.Cmd
+
+```go
+func execShell(s string) (string, error) {
+	cmd := exec.Command("/bin/bash","-c",s)
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	cmd.Stderr = &out
+
+	err := cmd.Run()
+	if err != nil {
+		return "error",err
+	}
+	return out.String(),err
+}
+
+func main(){
+	str, err := execShell("ls -l / | head -n 3")
+	fmt.Println(str)
+	fmt.Println(err)
+}
+```
+
+这段程序执行的话，也就相当于自身 fork 了一个子进程。
+
+#### 后台运行
+
+在调用自身程序成功之后，希望子进程可以独自运行，然后父进程退出。
+
+
+
+## 后续继续整理
+

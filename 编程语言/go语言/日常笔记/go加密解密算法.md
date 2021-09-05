@@ -1,0 +1,85 @@
+---
+title: go语言加密解密算法
+date: 2021-03-07 20:19:17
+categories:
+- 编程语言
+tags:
+- go
+---
+
+## Go 加密解密算法
+
+#### 开始
+
+加密解密在实际开发中应用比较广泛，常用加解密分为：“**对称式**”、“**非对称式**”和”**数字签名**“。
+
+**对称式**：对称加密(也叫[私钥](https://baike.baidu.com/item/私钥)加密)指加密和解密使用相同[密钥](https://baike.baidu.com/item/密钥)的加密算法。具体算法主要有[DES算法](https://baike.baidu.com/item/DES算法)，[3DES](https://baike.baidu.com/item/3DES)算法，TDEA算法，[Blowfish](https://baike.baidu.com/item/Blowfish)算法，[RC5](https://baike.baidu.com/item/RC5)算法，[IDEA](https://baike.baidu.com/item/IDEA)算法。
+
+**非对称加密(公钥加密)**：指加密和解密使用不同[密钥](https://baike.baidu.com/item/密钥)的加密算法，也称为公[私钥](https://baike.baidu.com/item/私钥)加密。具体算法主要有[RSA](https://baike.baidu.com/item/RSA)、[Elgamal](https://baike.baidu.com/item/Elgamal)、背包算法、Rabin、D-H、[ECC](https://baike.baidu.com/item/ECC)（椭圆曲线加密算法）。
+
+数字签名：数字签名是非对称[密钥加密技术](https://baike.baidu.com/item/密钥加密技术)与[数字摘要](https://baike.baidu.com/item/数字摘要/4069118)技术的应用。主要算法有md5、hmac、sha1等。
+
+#### md5
+
+**MD5信息摘要算法**是一种被广泛使用的[密码散列函数](https://baike.baidu.com/item/密码散列函数/14937715)，可以产生出一个128位（16进制，32个字符）的散列值（hash value），用于确保信息传输完整一致。
+
+```go
+func GetMd5String(s string) string {
+    h := md5.New()
+    h.Write([]byte(s))
+    return hex.EncodeToString(h.Sum(nil))
+}
+```
+
+#### hmac
+
+HMAC是密钥相关的哈希运算消息认证码（Hash-based Message Authentication Code）的缩写，
+
+它通过一个标准算法，在计算哈希的过程中，把key混入计算过程中。
+
+和我们自定义的加salt算法不同，Hmac算法针对所有哈希算法都通用，无论是MD5还是SHA-1。采用Hmac替代我们自己的salt算法，可以使程序算法更标准化，也更安全。
+
+```go
+//key随意设置 data 要加密数据
+func Hmac(key, data string) string {
+    hash:= hmac.New(md5.New, []byte(key)) // 创建对应的md5哈希加密算法
+    hash.Write([]byte(data))
+    return hex.EncodeToString(hash.Sum([]byte("")))
+}
+func HmacSha256(key, data string) string {
+    hash:= hmac.New(sha256.New, []byte(key)) //创建对应的sha256哈希加密算法
+    hash.Write([]byte(data))
+    return hex.EncodeToString(hash.Sum([]byte("")))
+}
+```
+
+#### sha1
+
+SHA-1可以生成一个被称为消息摘要的160[位](https://baike.baidu.com/item/位)（20[字节](https://baike.baidu.com/item/字节)）散列值，散列值通常的呈现形式为40个[十六进制](https://baike.baidu.com/item/十六进制/4162457)数。
+
+```go
+func Sha1(data string) string {
+    sha1 := sha1.New()
+    sha1.Write([]byte(data))
+    return hex.EncodeToString(sha1.Sum([]byte("")))
+}
+```
+
+参考：https://segmentfault.com/a/1190000024557845
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

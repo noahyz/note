@@ -1,0 +1,81 @@
+## 定时器
+
+### 一、ticket 使用
+
+Ticker是周期性定时器，即周期性的触发一个事件，通过Ticker本身提供的管道将事件传递出去。
+
+Ticker的数据结构与Timer完全一致：
+
+```
+type Ticker struct {
+	C <-chan Time
+	r runtimeTimer
+}
+```
+
+Ticker 对外仅仅暴露一个 channel，指定的时间到来就往该 channel 中写入系统时间，也即一个事件。
+
+在创建Ticket时会指定一个时间，作为事件触发的周期。这也就是Ticket与TImer的最主要的区别。
+
+##### 1. 介绍
+
+- 创建定时器：`func NewTicker(d Duration) *Ticker ` ，其中 d 是定时器事件触发的周期
+
+- 停止定时器：` func (t *Ticker) Stop() ` ，停止一个周期性的定时器。需要注意：
+
+    - 这个方法会停止计时，意味着不会向定时器的管道中写入事件，但是管道并不会被关闭。管道在使用完后，生命周期结束后会自动释放。
+    - Ticker 在使用完后务必要释放，否则产生资源泄露，进而会持续消耗CPU资源。
+
+- 简单接口： ` func Tick(d Duraton) <- chan Time` 。部分场景下，启动一个定时器并且永远不会停止，比如定时轮询任务，此时可以使用一个简单的Tick函数来获取定时器的管道。
+
+    - 这个函数内部实际还是创建一个Ticker，但并不会返回出来，所以没有手段来停止该Ticker。
+
+    - 一个错误的资源泄露的例子：
+
+    - ```go
+        func WrongTicker(){
+        	for {
+        		select{
+        		case <- time.Tick(1*time.Second):
+        			log.Printf("Resource leak!")
+        		}
+        	}
+        }
+        ```
+
+    - select 每次检测case 语句时都会创建一个定时器，for循环又不断的执行select语句，所以系统里会有越来越多的定时器不断的消耗CPU 资源，最终CPU会被耗尽。
+
+##### 2. 简单定时任务
+
+```go
+func main(){
+	ticket := time.NewTicker(1*time.Second)
+	defer ticket.Stop()
+	for range ticket.C {
+		log.Println("Ticket tick.")
+	}
+}
+```
+
+上面的代码中，for range ticket.C 会持续从管道中获取事件，收到事件后打印一行日志。如果管道中没有数据会阻塞等待事件，由于 ticket 会周期性的向管道中写入事件。所有上述程序会周期性的打印日志
+
+##### 3. 定时聚合任务
+
+有时我们希望在事件没有到来的时候go 这个协程为我们做点事情。
+
+```go
+func main(){
+	ticket := time.NewTicker(3*time.Second)
+
+	for {
+		select {
+		case <- ticket.C:
+			log.Println("ticket arrive")
+		default:
+			log.Println("default")
+			time.Sleep(1*time.Second)
+		}
+	}
+}
+```
+

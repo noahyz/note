@@ -1,0 +1,87 @@
+### 一、go http client 设置超时
+
+##### 1. http请求到完成响应的时间限制
+
+```go
+client := http.Client{
+	Timeout: 5*time.second,
+}
+```
+
+这个超时是整个 Http 请求到完成响应的时间限制。
+
+##### 2. tcp 连接阶段的超时
+
+```go
+client := http.Client{
+	Transport: &http.Transport{
+		Proxy: http.ProxyFromEnvironment,
+		Dial: (&net.Dialer{
+			Timeout:   2  * time.Second,
+			Deadline:  time.Now().Add(3  * time.Second),
+			KeepAlive: 2 * time.Second,
+		}).Dial,
+		TLSHandshakeTimeout: 2 * time.Second,
+	},
+	Timeout: 5 * time.Second,
+}
+```
+
+设置 Transport 结构中的 Dial 属性来实现。
+
+- Dial 的 timeout 是在 tcp 连接时设置的连接超时
+- dealine 会在超过这个时间后强制关闭连接，这个在连接没有响应的时候会有用
+- keepAlive 会发起心跳，检测连接是否存活。
+- TLSHandshakeTimeout 作为 https 握手的超时
+- Proxy 设置代理。`http.ProxyFromEnvironment` 表示根据环境变量来设置，即 http_proxy和https_proxy 两个变量设置的http代理
+    - 如果强制不使用代理，可以设置为
+    - `Proxy: func(*http.Request)(*url.URL, error) {return nil,nil}`
+
+### 二、http client 实现
+
+```go
+func main(){
+	client := http.Client{
+		Transport: &http.Transport{
+			Dial: (&net.Dialer{
+				Timeout: 2*time.Second,
+				Deadline: time.Now().Add(2*time.Second),
+			}).Dial,
+		},
+	}
+	for {
+		url_test := "http://10.186.225.124:80/monitor_test.cgi"
+		//url_alignment := "http://shdev.receiver.barad.tencentyun.com/monitor_test.cgi"
+		tm := time.Now().Unix()
+		var dimension = DimensionStu{
+			Appid:   "hello",
+			Product: "hello",
+			Uuid:    "hello",
+		}
+		//var batch = []BatchStu{{Unit: "mib", Name: "cpu", Value: 33.5}, {Unit: "mib", Name: "cpu", Value: 40.9}}
+		var valData  = rand.Float64()*100
+		var batch = []BatchStu{{Unit: "mib", Name: "cpu", Value: valData}}
+		var oneData = []Data{{Timestamp: tm, Namespace: "qce/monitor_test", Dimension: dimension, Freq: 60, Batch: batch}}
+		jsonStr, err := json.Marshal(oneData)
+		if err != nil {
+			panic(err)
+		}
+		req, err := http.NewRequest("POST", url_test, bytes.NewBuffer(jsonStr))
+		if err != nil {
+			panic(err)
+		}
+		req.Header.Set("Content-Type", "applicate/json")
+
+		//spew.Dump(req)
+		resp, err := client.Do(req)
+		if err != nil {
+			panic(err)
+		}
+		defer resp.Body.Close()
+		body, _ := ioutil.ReadAll(resp.Body)
+		fmt.Println(string(body))
+		time.Sleep(1*time.Second)
+	}
+}
+```
+

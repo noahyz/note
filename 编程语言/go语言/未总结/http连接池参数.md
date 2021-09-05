@@ -1,0 +1,1 @@
+https://xujiahua.github.io/posts/20200723-golang-http-reuse/
