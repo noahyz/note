@@ -6,3 +6,5 @@
 
 kafka实战： http://legendtkl.com/2016/06/30/kafka-in-action/
 
+W3C Apache kafka教程：https://www.w3cschool.cn/apache_kafka/apache_kafka_introduction.html
+
