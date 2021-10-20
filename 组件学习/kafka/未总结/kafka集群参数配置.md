@@ -21,5 +21,15 @@ log.retention.{hours|minutes|ms}: 这三个都是控制一条消息数据被保�
 log.retention.bytes: 指定Broker为消息保存的总磁盘容量大小。默认为-1，表明想在这台Broker上保存多少数据都可。
 message.max.bytes: 控制Broker能够接收的最大消息大小。默认值不到1M，太小了。
 
+topic级别参数会覆盖全局Broker参数的值
+retention.ms: 规定了该Topic消息被保存的时长。默认是7天，即该Topic只保存最近7天的消息。一旦设置此值，会覆盖Broker端的全局参数值
+retention.bytes: 规定要为该Topic预留多大的磁盘空间。默认值为-1，表示可以无限使用磁盘空间
+max.message.bytes: kafka Broker能够正常接收该Topic的最大消息大小
+
+如下可以设置Topic级别的参数：在创建Topic时设置
+bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic transaction --partitions 1 --replication-factor 1 --config retention.ms=15552000000 --config max.message.bytes=5242880
+在修改Topic时设置参数：
+bin/kafka-configs.sh --zookeeper localhost:2181 --entity-type topics --entity-name transaction --alter --add-config max.message.bytes=10485760
+
 ```
 
