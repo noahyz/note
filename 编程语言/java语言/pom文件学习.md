@@ -76,3 +76,22 @@ maven会维护一个中央仓库，下载到本地的jar包会放在用户主目
 - cobertura-maven-plugin：生成单元测试覆盖率报告
 - findbugs-maven-plugin：对Java源码进行静态分析以找出潜在问题
 
+### 配置jdk版本
+
+maven的pom.xml文件中未配置jdk版本时，一旦pom文件发生变化，Java compiler和language level 会自动变回原来的默认版本，在pom中配置jdk版本的配置内容如下：
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+    </plugins>
+</build>
+```
+
