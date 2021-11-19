@@ -455,5 +455,13 @@ docker cp 3a3c1b0c5180:/home/test.cpp /tmp
     docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e ES_JAVA_OPTS="-Xms64m -Xmx512m" elasticsearch:7.6.2
     ```
 
-    
+### 可视化
+
+- portainer：Docker图形化界面工具，提供一个后台面板供我们操作
+
+    ```
+    docker run -d -p 9999:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --privileged=true portainer/portainer 
+    ```
+
+    访问测试：http://9.134.239.95:9999 
 
