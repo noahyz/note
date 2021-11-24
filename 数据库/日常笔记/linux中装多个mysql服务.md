@@ -43,3 +43,38 @@ log-error=/path/myenv/data/error.log
 密码的修改问题？？？
 
 如何关闭mysql--mysqladmin？？？？
+
+```
+./bin/mysqladmin shutdown -S /usr/local/mysql/config/mysql.sock 
+```
+
+```
+/path/myenv/mysql/bin/mysqld --defaults-file=/path/myenv/data/my.cnf --basedir=/path/myenv/mysql --datadir=/path/myenv/mysql/data --plugin-dir=/path/myenv/mysql/lib/plugin --user=root --log-error=/path/myenv/data/error.log --pid-file=/path/myenv/data/mysql.pid --socket=/path/myenv/data/mysql.sock --port=13306
+```
+
+/usr/local/mysql/scripts/mysql_install_db
+
+```
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+To do so, start the server, then issue the following commands:
+
+  /usr/local/mysql/bin/mysqladmin -u root password 'new-password'
+  /usr/local/mysql/bin/mysqladmin -u root -h Tencent-SNG password 'new-password'
+
+Alternatively you can run:
+
+  /usr/local/mysql/bin/mysql_secure_installation
+```
+
+```sql
+insert into `user` VALUES('9.137.94.128','root','*1EADAEB11872E413816FE51216C9134766DF39F9','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','','','','',0,0,0,0,'','','N');
+
+insert into `user` VALUES('127.0.0.1','cmlb','*1EADAEB11872E413816FE51216C9134766DF39F9','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','','','','',0,0,0,0,'','','N');
+
+flush privileges;
+set password for root@'localhost' = password('root');
+GRANT ALL PRIVILEGES ON * . * TO 'root'@'localhost';
+grant privilegesCode on dbName.tableName to username@host identified by "password";
+create user cmlb_cc@'127.0.0.1' identified by 'cmlb_cc@sng'
+drop user zhangsan@'%';
+```
