@@ -27,8 +27,8 @@ binlog-ignore-db=mysql  # 不同步的数据库，以上两者可选添加
 
 
 ​    
-    `service mysqld restart`或者`systemctl restart mysqld`
-    * 如果启动失败，请查看日志解决问题。一般mysql日志在 `/var/log/mysql.log`
+​    `service mysqld restart`或者`systemctl restart mysqld`
+​    * 如果启动失败，请查看日志解决问题。一般mysql日志在 `/var/log/mysql.log`
 
 * 查看当前主服务器的二进制日志名和偏移量，配置好之后从库即从这个偏移点去同步数据。    * show master status\G
     * 记录File和Position的值。

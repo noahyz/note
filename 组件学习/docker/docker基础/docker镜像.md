@@ -153,5 +153,25 @@ root@9-134-239-95:~# docker image inspect nginx:latest
 ]
 ```
 
+所有的Docker 镜像都起始于一个基础镜像层，当进行修改或增加新的内容时，就会在当前镜像层之上，创建新的镜像层。在添加额外的镜像层的同时，镜像始终保持着当前所有镜像的组合。当镜像中某个层级升级的时候，新版本会作为一个新镜像层添加到镜像中。
+
+Docker 镜像都是只读的，当容器启动时，一个新的可写层被加载到镜像的顶部。这一层就是我们常说的容器层，容器之下的都叫镜像层。
+
+### commit 镜像
+
+如何提交一个自己的镜像
+
+```shell
+docker commit 提交容器成为一个新的副本
+
+docker commit -m="提交的描述信息" -a="作者" 容器id 目标镜像名:[TAG] 
+```
+
+```shell
+docker run -it -p 9999:8080 容器id 
+docker exec -it 容器id /bin/bash
+docker commit -m="add wabapps" -a="noahyzhang" 容器id tomcat02:0.1 
+```
+
 
 
