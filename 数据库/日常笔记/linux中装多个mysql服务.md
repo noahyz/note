@@ -1,5 +1,11 @@
 # linux中装多个mysql服务
 
+# 文章需要重新写：https://learnku.com/articles/43558
+
+
+
+
+
 ### 在linux 中装多个mysql服务
 
 * 在linux中装多个mysql服务，采用端口号不同来区分。
@@ -42,11 +48,15 @@ log-error=/path/myenv/data/error.log
 * 此时验证mysql服务。这样登录 mysql -uroot -S /path/myenv/data/mysql.sock 便可登录，不能忘了 -S 参数选项，否则可能会登录到别的mysql服务。
 密码的修改问题？？？
 
-如何关闭mysql--mysqladmin？？？？
+如何关闭mysql--mysqladmin？
 
 ```
 ./bin/mysqladmin shutdown -S /usr/local/mysql/config/mysql.sock 
 ```
+
+
+
+
 
 ```
 /path/myenv/mysql/bin/mysqld --defaults-file=/path/myenv/data/my.cnf --basedir=/path/myenv/mysql --datadir=/path/myenv/mysql/data --plugin-dir=/path/myenv/mysql/lib/plugin --user=root --log-error=/path/myenv/data/error.log --pid-file=/path/myenv/data/mysql.pid --socket=/path/myenv/data/mysql.sock --port=13306
