@@ -12,6 +12,8 @@ python3 manage.py makemigrations
 python3 manage.py migrate
 # 5. 创建一个app
 python3 manage.py startapp index
+# 6. 创建超级管理员账户,用户名为admin，邮箱为 admin@163.com,然后在输入密码
+python3 manage.py createsuperuser --username=admin -email=admin@163.com 
 ```
 
 不同文件说明
@@ -40,6 +42,13 @@ migrations 目录用于存储数据库迁移时生成的文件，该目录下的
 ```shell
 python3 manage.py sq;migrate index 0001_initial 
 # 可以查看到迁移文件执行的SQL语句
+```
+
+路由转发
+
+```shell
+通常会在每个app里，创建各自的 urls.py 路由模块，然后从根路由出发，将 app 所属的 url 请求，全部转发到相应的 urls.py 模块中。
+从主路由转发到各个应用路由的过程叫做路由的分发，通过 include() 函数来实现
 ```
 
 
