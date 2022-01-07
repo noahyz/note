@@ -1,3 +1,7 @@
+django框架参考：http://c.biancheng.net/django/
+https://www.runoob.com/django/django-middleware.html
+https://www.cnblogs.com/linxiyue/p/10800020.html
+
 ```shell
 # 1.创建 Django 项目
 django-admin startproject BookStore
