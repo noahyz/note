@@ -44,3 +44,4 @@ git checkout -b 本地分支名 origin/远程分支名
 git fetch origin 远程分支名 : 本地分支名
 ```
 
+git fetch origin --prune #从远程拉取所有信息

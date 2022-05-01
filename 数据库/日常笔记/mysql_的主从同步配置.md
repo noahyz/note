@@ -79,3 +79,7 @@ replicate-ignore-db=test.table # 不用同步的数据库,可以精确到表
 
 * 查看从库已有数据库和表
 这时，就可以验证了，在主机数据库中添加表，或者数据，验证从库是否保持一致的改变。对主库的增删改查操作，从库会自动进行同步操作。
+
+CHANGE MASTER TO MASTER_HOST='9.218.17.212', MASTER_PORT=3306, MASTER_USER='cmlb_cc', MASTER_PASSWORD='cmlb_cc@sng', MASTER_LOG_FILE='mysql-bin.002046', MASTER_LOG_POS= 61407856;
+
+insert into server_list_t(svr_id, svr_ip, idc_id, set_id, port_base, port_step, port_num, weight, app_id, work_mode) values(109120043, "11.148.162.13", 20001, 0,9001, 1,1,100, 10912, 2),(109120042, "11.148.162.16", 20001, 0,9001, 1,1,100, 10912, 2),(109120040, "9.208.243.104", 20001, 0,9001, 1,1,100, 10912, 2),(109120041, "9.208.243.107", 20001, 0,9001, 1,1,100, 10912, 2);
