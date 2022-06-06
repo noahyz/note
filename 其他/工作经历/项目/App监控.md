@@ -1,7 +1,5 @@
 ## App 监控
 
-
-
 ### 一、工作经历
 
 单独负责设计、开发、运维App监控系统的后端，并且已经推动公有云上线。
@@ -14,16 +12,20 @@ Web 后端模块设计和开发：设计了新的项目框架融合了DDD的四�
 
 App监控系统的整体架构设计，采用微服务的架构思想，基于业务逻辑拆分系统中业务模块， 按照职责范围进行识别划分，同时明确模块的职责范围；服务划分粒度适中，每个模块各司其职，服务间不互相依赖；服务数量适中，调用链路短，保证高性能和简单快速的问题定位，规避了故障扩散现象。
 
-
+#### 1. 项目工程化设计：在MVC三层架构的基础上，融入了DDD设计的思想，设计了较为适合业务的Go语言项目框架，解决了实践中MVC三层架构的职责不清、缺乏领域对象概念；DDD过于复杂，上手和落地较为困难的问题
 
 由于三层架构（MVC）在实践中可能会出现职责不清、接口处理层（Controller 层）和业务逻辑层（Service层）出现越界逻辑；缺乏定义领域对象的概念，导致业务维护起来成本较大。因此我们参考 Kratos 的项目工程化理念，融合 DDD 的设计思想，加入了领域边界概念，将 MVC 的 Model 层抽象成应用逻辑层（biz，就是 Business）（也叫领域层），而描述应用逻辑层的对象，就是我们应用程序中的一些核心对象，会将 model、service、dao 相关的接口 interface 设计放在这里，并实现业务逻辑，类似于 DDD 的 domain 层。我们会在 service 层实现 DDD 的 application 的功能，处理用户的请求，并且实现 DTO 到 DO 的转换。我们的 data 层主要用于将领域对象从持久层取出来，也就是 DAO 里面的 interface 的实现，通过 data 层去掉了 DDD 基础层，主要是封装一些业务数据的访问，例如 kafka、redis、db等，同时在 data 层实现 biz 定义的 repo 接口。整体上保证了 MVC 三层架构的简单，引入 DDD 领域、边界的概念，改善了 MVC 三层架构可能会出现的问题，可维护性较高。
 
 MVC 的 service 层和 DO 层，分别由 biz（business）层和 data 层取代。而且我们还基于 trpc-go 框架去搭建。参考结合了 Kratos 的设计
 从 Kratos 设计看 Go 微服务工程实践：https://www.infoq.cn/article/mee5qutrtjvgwzpp57y6
 
+#### 2. 系统整体架构设计：采用微服务的架构思想，基于业务逻辑拆分系统中业务模块，按照职责范围进行识别划分，同时明确模块的职责范围；服务划分粒度适中，每个模块各司其职，服务间不互相依赖；服务数量适中，调用链路短，保证高性能和快速的问题定位，同时也规避了故障扩散现象
 
+https://iwiki.woa.com/pages/viewpage.action?pageId=1639064809
 
-### Project Layout 设计
+<img src="./image/rum-app架构图.png" style="zoom:50%;" />
+
+### 二、Project Layout 设计
 
 https://km.woa.com/articles/show/536419?kmref=search&from_page=1&no=5
 
