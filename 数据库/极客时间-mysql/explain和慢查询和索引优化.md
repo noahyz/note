@@ -170,6 +170,8 @@ mysqldumpslow -s r -t 20 /mysqldata/mysql/mysql06-slow.log | more
 
 ## 三、索引优化的手段
 
+20条索引优化规则：https://www.51cto.com/article/625199.html
+
 ##### 1. 方法概览
 
 使用 ` show index from table_name ` 查看一个表中的索引。
