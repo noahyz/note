@@ -1,0 +1,76 @@
+## 一致性协议之 ZAB
+
+作为一个优秀高效且可靠的分布式协调框架，`ZooKeeper` 在解决分布式数据一致性问题时并没有直接使用 `Paxos` ，而是专门定制了一致性协议叫做 `ZAB(ZooKeeper Automic Broadcast)` 原子广播协议，该协议能够很好地支持 **崩溃恢复** 
+
+### 一、ZAB 中的三个角色
+
+- Leader（领导者）：集群中 **唯一的写请求处理者** ，能够发起投票（投票也是为了进行写请求）
+- Follower（跟随者）：能够接收客户端的请求，如果是读请求则可以自己处理，**如果是写请求则要转发给 `Leader`** 。在选举过程中会参与投票，**有选举权和被选举权**
+- Observer（观察者）：就是没有选举权和被选举权的 `Follower` 
+
+在 `ZAB` 协议中对 `zkServer`(即上面我们说的三个角色的总称) 还有两种模式的定义，分别是 **消息广播** 和 **崩溃恢复** 。
+
+### 二、ZXID 和 myid
+
+ZooKeeper 采用全局递增的事务 id 来标识，所有 proposal(提议)在被提出的时候加上了ZooKeeper Transaction Id 。ZXID是64位的Long类型，这是保证事务的顺序一致性的关键。ZXID中高32位表示纪元epoch，低32位表示事务标识xid。可以认为zxid越大说明存储数据越新
+
+![](./image/ZXID.png)
+
+- 每个leader都会具有不同的**epoch**值，表示一个纪元/朝代，用来标识 leader周期。每个新的选举开启时都会生成一个新的epoch，从1开始，每次选出新的Leader，epoch递增1，并会将该值更新到所有的zkServer的zxid的epoch
+- **xid**是一个依次递增的事务编号。数值越大说明数据越新，可以简单理解为递增的事务id。**每次epoch变化，都将低32位的序号重置**，这样保证了zxid的全局递增性
+
+每个ZooKeeper服务器，都需要在数据文件夹下创建一个名为myid的文件，该文件包含整个ZooKeeper集群唯一的id（整数）。例如，某ZooKeeper集群包含三台服务器，hostname分别为zoo1、zoo2和zoo3，其myid分别为1、2和3，则在配置文件中其id与hostname必须一一对应，如下所示。在该配置文件中，server.后面的数据即为myid
+
+```
+server.1=zoo1:2888:3888
+server.2=zoo2:2888:3888
+server.3=zoo3:2888:3888
+```
+
+### 三、历史队列
+
+每一个follower节点都会有一个**先进先出**（FIFO)的队列用来存放收到的事务请求，保证执行事务的顺序。所以：
+
+- 可靠提交由ZAB的事务一致性协议保证
+- 全局有序由TCP协议保证
+- 因果有序由follower的历史队列(history queue)保证
+
+### 四、消息广播模式
+
+ZAB协议两种模式：消息广播模式和崩溃恢复模式
+
+消息广播模式是通过如下流程保证事务的顺序一致性的：
+
+- leader 从客户端收到一个写请求，然后 leader 生成一个新的事务并为这个事务生成一个唯一的 ZXID 
+- leader 将这个事务发送给所有的 follower 节点，将带有 ZXID 的消息作为一个提案（proposal）分发给所有 follower
+- follower 节点将收到的事务请求加入到历史队列中，当 follower 接收到提案（proposal），先将提案（proposal）写到磁盘，写磁盘成功后再向 leader 回一个 ACK 
+- 当 leader 收到大多数 follower（超过一半）的 ACK 消息，leader 会向 follower 发送 commit 请求（leader 自身也要提交这个事务）
+- 当 follower 收到 commit 请求时，会判断该事务的 ZXID 是不是比历史队列中的任何事物的 ZXID 都小，如果是则提交事务，如果不是则等待比他更小的事务的 commit （保证顺序性）
+- leader 将处理结果返回给客户端
+
+**过半写成功策略**：leader 节点接收到写请求后，这个 leader 会将写请求广播给各个 server，各个 server 会将该写请求加入历史队列，并向 leader 发送 ACK 消息，当 leader 收到一半以上的 ACK 消息后，说明写操作可以执行。Leader 会向这个 server 发送 commit 消息，各个 server 收到消息后执行 commit 操作。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
