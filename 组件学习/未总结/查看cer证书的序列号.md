@@ -1,0 +1,1 @@
+查询 cer 证书的序列号：https://blog.csdn.net/csj50/article/details/82982255

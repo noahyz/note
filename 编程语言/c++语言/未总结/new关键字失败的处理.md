@@ -1,0 +1,1 @@
+c++ new 失败的处理： https://www.cnblogs.com/LonelyEnvoy/p/5865832.html

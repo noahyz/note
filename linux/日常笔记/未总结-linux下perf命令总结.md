@@ -22,3 +22,11 @@ perf是Linux下的一款性能分析工具，能够进行函数级与指令级�
     选项 call_order 用以设定调用图谱的显示顺序，该选项有 2个取值，分别是 callee 与caller。
         将该选项设为callee 时，perf按照被调用的顺序显示调用图谱，上层函数被下层函数所调用。
         该选项被设为caller 时，按照调用顺序显示调用图谱，即上层函数调用了下层函数路径，也不显示每条调用路径的采样率
+
+
+
+https://blog.didiyun.com/index.php/2019/01/02/linux-perf/
+
+https://www.shuzhiduo.com/A/WpdKrb1m5V/
+
+https://blog.csdn.net/cyq6239075/article/details/104371328

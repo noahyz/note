@@ -45,3 +45,61 @@ git fetch origin 远程分支名 : 本地分支名
 ```
 
 git fetch origin --prune #从远程拉取所有信息
+
+#### 四、远程仓库的操作
+
+```
+1. 修改远程仓库地址
+git remote set-url origin <remote-url>
+2. 远程仓库路径查询
+git remote -v
+3. 添加远程仓库
+git remote add origin <项目地址> 
+4. 删除指定的远程仓库
+git remote rm origin
+
+远程分支删除、重命名
+1. 删除远程分支
+git 1.7 之后可以使用：git push origin --delete <branch_name> 
+推送一个空分支到远程分支（相当于删除远程分支）：git push origin :<branch_name>
+2. 删除 tag
+git push origin --delete tag <tag_name>
+git push origin :refs/tags/<tag_name>
+```
+
+ #### 五、克隆
+
+```
+// 克隆依赖的库 -- 方法一
+git clone https://xxx.git
+git submodule update --init --recursive 
+// 克隆依赖的库 -- 方法二 
+git clone --recursive https://xxx.git 
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
