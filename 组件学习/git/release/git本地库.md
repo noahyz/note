@@ -85,6 +85,7 @@ git clone、git pull、git fetch
 1. git clone
 git clone <版本库的url>
 git clone <版本库的url> <本地目录名>  # 如果本地目录不想与远程仓库同名，可以自定义本地目录名
+git clone --recursive [address] # 可以将子项目一起 clone 下来
 
 2. git pull # 拉取远程分支更新到本地仓库。git pull 相当于从远程仓库获取最新版本，然后再与本地分支 merge
 因此：git pull = git fetch + git merge
