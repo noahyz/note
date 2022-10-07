@@ -79,6 +79,20 @@
 
 * run 命令行参数  # 如果直接运行程序
 * set args 命令行参数   # 后面在继续进行调试
+  * show args 显示命令行参数
+
+
+#### LD_PRELOAD 的调试
+
+```
+gdb program_name
+(gdb): set environment LD_PRELOAD ./your_so.so
+(gdb): set args -c dag/test_resmon.dag
+(gdb): show args
+(gdb): run 
+```
+
+
 
 ### 更强大的工具
 

@@ -8,3 +8,7 @@ cmake编译protobuf文件：https://blog.csdn.net/u012526003/article/details/523
 
 cmake include文件包含：http://c.biancheng.net/view/7125.html
 
+add_subdirectory ：https://blog.csdn.net/FL1623863129/article/details/120968730
+
+cmake 常用变量：https://blog.csdn.net/wzj_110/article/details/116674655
+

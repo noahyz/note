@@ -42,6 +42,10 @@ git branch -r
 git checkout -b 本地分支名 origin/远程分支名
 方法二（使用该方法会在本地新建分支，但是不会自动切换到该本地分支，需要手动checkout，且本地分支不会和远程分支建立映射关系）
 git fetch origin 远程分支名 : 本地分支名
+
+注意：
+git chekcout -b branch_name  // 基于当前分支新创建一个 branch_name 分支
+git checkout -b branch_name origin/branch_name  // 拉取远程分支 branch_name 到本地
 ```
 
 git fetch origin --prune #从远程拉取所有信息
