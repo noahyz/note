@@ -11,20 +11,27 @@ tags:
 
 #### 1. CPU时间
 
-| cpu指标 | 含义                         |
-| :------ | :--------------------------- |
-| user    | 用户态时间                   |
-| nice    | 用户态时间(低优先级，nice>0) |
-| system  | 内核态时间                   |
-| idle    | 空闲时间                     |
-| iowait  | I/O等待时间                  |
-| irq     | 硬中断                       |
-| softirq | 软中断                       |
+时间单位为：jiffies
 
-iowait时间是不可靠值，理由如下：
+| cpu指标 | 含义                                                         |
+| :------ | :----------------------------------------------------------- |
+| user    | 用户态时间，一般/高优先级，仅统计 nice <= 0                  |
+| nice    | 用户态时间(低优先级，nice>0)                                 |
+| system  | 内核态时间                                                   |
+| idle    | 空闲时间，不包含 IO 等待时间                                 |
+| iowait  | I/O等待时间，磁盘 IO 等待时间                                |
+| irq     | 硬中断                                                       |
+| softirq | 软中断                                                       |
+| steal   | 被盗时间，虚拟化环境中运行其他操作系统上花费的时间（since Linux 2.6.11） |
+| guest   | 来宾时间，操作系统运行虚拟 cpu 花费的时间（since Linux 2.6.24） |
+| guest_nice | nice 来宾时间，运行一个带 nice 值的 guest 花费的时间（since linux 2.6.33) |
+
+常见的 `1 jiffies = 0.01s = 10ms`
+
+Man 手册中 iowait 有单独说明， iowait 时间是不可靠值，理由如下：
 
 - CPU不会等待I/O执行完成，而iowait是等待I/O完成的时间。 当CPU进入idle状态，很可能会调度另一个task执行，所以iowait计算时间偏小；
-- 多核CPU，iowait的计算并非某一个核，因此计算每一个cpu的iowait非常困难；
+- 多核CPU，iowait的计算并非某一个核，因此计算每一个 cpu 的 iowait 非常困难；
 
 #### 2. /proc/stat
 

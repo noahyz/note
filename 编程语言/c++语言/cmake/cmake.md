@@ -12,3 +12,5 @@ add_subdirectory ：https://blog.csdn.net/FL1623863129/article/details/120968730
 
 cmake 常用变量：https://blog.csdn.net/wzj_110/article/details/116674655
 
+cmake 的 install 指令：https://blog.csdn.net/qq_38410730/article/details/102837401
+

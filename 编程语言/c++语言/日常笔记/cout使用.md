@@ -27,3 +27,14 @@ std::cout << std::fixed << std::setprecision(4);
 ```
 printf("%.3f \n", pi);
 ```
+
+#### 3. 输出二进制、八进制
+
+```
+int a = 2149580819;
+cout << "八进制： " << oct << a << endl;
+cout << "十进制： " << dec << a << endl;
+cout << "十六进制： " << hex << a << endl;
+cout << "二进制： " << bitset<sizeof(a)*8>(a) << endl;
+```
+
