@@ -1,3 +1,10 @@
+---
+title: GCC 通过 --wrap 选项使用包装函数
+date: 2023-01-19 11:11:41
+tags:
+- gcc
+---
+
 ### GCC 通过 --wrap 选项使用包装函数
 
 对 symbol 使用包装函数，任何对 symbol 未定义的引用会被解析成 `__wrap_symbol`。而任何对 `__real_symbol` 未定义的引用会被解析成 symbol。即当一个名为 symbol 符号使用 wrap 功能时，工程中任何用到 symbol 符号的地方实际使用的是 `__wrap_symbol` 符号，任何用到 `__real_symbol` 的地方实际使用的是真正的 symbol。

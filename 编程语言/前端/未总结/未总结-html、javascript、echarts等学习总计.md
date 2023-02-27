@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # 未总结---html、javascript、echarts等学习总计
 
 学习完html、javascript等看能以什么方式将学习后的结果展示出来。

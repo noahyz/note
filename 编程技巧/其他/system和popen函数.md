@@ -1,3 +1,10 @@
+---
+title: popen 和 system 函数
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ### 一、popen 函数
 
 函数定义：`FILE * popen( const char * command,const char * type);`

@@ -1,8 +1,6 @@
 ---
 title: /proc/stat解析
 date: 2021-03-12 21:11:41
-categories:
-- linux
 tags:
 - /proc/stat
 ---

@@ -1,8 +1,6 @@
 ---
 title: 通过free命令理解linux内存管理
 date: 2020-10-06 16:09:52
-categories:
-- linux
 tags:
 - 内存管理
 ---

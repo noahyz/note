@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # vim高亮、搜索多个关键词
 
 1. vim 搜索：输入 / + 搜索内容

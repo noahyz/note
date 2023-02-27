@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ### GoLand 使用技巧
 
 https://dreamerjonson.com/2019/03/05/golang-69-shortkey/index.html

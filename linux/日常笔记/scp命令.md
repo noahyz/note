@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ### scp命令
 
 1. 从服务器上下载文件

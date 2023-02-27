@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## C++ code dump 调试
 
 打开 core dump 开关：`ulimit -c unlimited`

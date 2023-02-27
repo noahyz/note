@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## Go语言编译构建时 ldflags 变量注入
 
 Go 语言在编译构建时，可以注入变量。如下：

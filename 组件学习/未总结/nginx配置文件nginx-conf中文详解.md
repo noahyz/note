@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # nginx配置文件nginx.conf中文详解
 
 ######Nginx配置文件nginx.conf中文详解#####

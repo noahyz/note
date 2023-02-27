@@ -1,8 +1,6 @@
 ---
 title: linux中PATH环境变量总结
 date: 2021-03-07 21:11:41
-categories:
-- linux
 tags:
 - 环境变量
 ---

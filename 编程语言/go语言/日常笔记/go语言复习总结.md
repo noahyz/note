@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # go语言复习总结
 
 * GOPATH: 就是 golang 工作目录：我们的所有项目的源码都这个目录下。

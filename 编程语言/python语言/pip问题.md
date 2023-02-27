@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # pip2 安装问题
 
 get-pip.pypython2的正确文件已移至 https://bootstrap.pypa.io/2.7/get-pip.py

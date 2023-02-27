@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## mpstat
 
 sysstat 包含了常用的Linux 性能分析工具，用来监控和分析系统的性能。

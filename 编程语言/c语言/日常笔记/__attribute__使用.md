@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 #### 一、`__attribute__((constructor))` 和 `__attribute__((destructor))`
 
 `__attribute__` 是 GNU C 的一大特色，可以设置函数属性、变量属性、类型属性。主要用来在函数或数据声明中设置其属性。给函数设置属性的主要目的在于让编译器进行优化。

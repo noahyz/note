@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## C 语言中 errno 及其相关用法
 
 errno 在 `<errno.h>` 头文件中定义。如下：

@@ -1,8 +1,6 @@
 ---
 title: Linux系统tempfs和/dev/shm解析
 date: 2020-12-20 13:19:17
-categories:
-- linux
 tags:
 - tempfs /dev/shm
 ---

@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # 深入认识makefile 规则
 
 #### 多目标规则与多规则目标

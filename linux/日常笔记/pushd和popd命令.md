@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## pushd 和 popd 命令
 
 - dirs 命令，可以显示目录栈中（或历史）的目录

@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## 一、RDB 持久化
 
 RDB 持久化功能所生成的 RDB 文件是一个经过压缩的二进制文件。有 SAVE 和 BGSAVE 命令

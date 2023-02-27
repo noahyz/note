@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # linux下查看uuid 的三种方法及使用uuid的作用
 
 查看设备uuid 的办法

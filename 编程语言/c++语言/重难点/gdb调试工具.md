@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # gdb调试工具
 
 在对C/C++ 程序的调试，需要在编译前加上 -g 选项
@@ -92,7 +99,15 @@ gdb program_name
 (gdb): run 
 ```
 
+### 2. 参数说明
 
+如果想要调试一个正在运行的进程的话，可以在启动的时候指定一个进程 ID 作为第二个参数：` gdb program 1234`。此命令会将进程 1234 绑定到 GDB（除非有一个名称为 1234 的文件，此时会优先将 1234 作为一个 core 文件来看待）
+
+- --quiet, -q, --silent ：禁止 gdb 打印一些前置消息，例如 gdb 版本号之类的。
+- --pid=PID：attach to running process PID
+- --batch: 在运行操作后结束进程
+- --readnever: Do not read symbol files
+- --nx:  Do not read any .gdbinit files in any directory。不执行任何初始化文件中的命令。
 
 ### 更强大的工具
 

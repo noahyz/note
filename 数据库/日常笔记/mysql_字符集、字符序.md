@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # mysql 字符集、字符序
 
 https://www.cnblogs.com/chyingp/p/mysql-character-set-collation.html

@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # mysql设置text字段为not null，并且没有默认值，插入报错：doesn't have a default value
 
 https://www.cnblogs.com/jpfss/p/11190014.html

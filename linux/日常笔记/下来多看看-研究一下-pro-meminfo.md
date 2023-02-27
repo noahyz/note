@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # 下来多看看--研究一下 /pro/meminfo
 
 [https://toutiao.io/posts/n4hzg1/preview](https://toutiao.io/posts/n4hzg1/preview)

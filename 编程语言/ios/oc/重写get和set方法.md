@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## iOS 重写 get 和 set 方法
 
 使用 @property 指令，编译器会自动生成 setter 和 getter 方法。

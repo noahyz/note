@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ### prometheus client 的使用
 
 如下，基本涵盖了写一个prometheus client 的函数

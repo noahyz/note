@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # python的*和**号是什么意思
 
 1. 他们可以用来更方便地定义参数为tuple和dictionary的函数

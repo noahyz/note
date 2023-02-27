@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ### module 的使用
 
 默认情况下，GOPATH是不支持go modules 的。在 go env 中查看。设置 ` export GO111MODULE=on `

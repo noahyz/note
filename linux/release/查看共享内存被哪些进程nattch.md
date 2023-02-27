@@ -1,8 +1,6 @@
 ---
 title: 查看共享内存被哪些进程nattch
 date: 2020-10-25 19:11:41
-categories:
-- linux
 tags:
 - 共享内存
 ---

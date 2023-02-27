@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # mysql 的主从同步配置
 
 ### mysql的主从同步配置

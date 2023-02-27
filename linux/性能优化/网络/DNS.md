@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## 一、域名和 DNS 解析
 
 域名的规则：`time.geekbang.org` 在这个域名中，最后面的 `org` 是顶级域名，中间的 `geekbang` 是二级域名，最左边的 `time` 则是三级域名。

@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # linux 系统日志以及分析
 
 https://blog.csdn.net/dubendi/article/details/78782691

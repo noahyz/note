@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # linux中装多个mysql服务
 
 # 文章需要重新写：https://learnku.com/articles/43558

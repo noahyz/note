@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ### template Patterns
 
 模板模式是一个轻量的语言用于展示以点分隔的字符串应该如何与 metircs 映射

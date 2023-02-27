@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # goland中gopath
 
 详解地址：https://www.jianshu.com/p/cf298a0db3fa

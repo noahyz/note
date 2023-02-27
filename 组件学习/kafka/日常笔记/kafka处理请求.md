@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 kafka 所有的请求都是通过TCP网络以Socket 的方式进行通讯的，使用的Reactor模式
 
 ![](../image/kafka处理请求.png)

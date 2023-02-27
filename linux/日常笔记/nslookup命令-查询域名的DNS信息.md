@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # nslookup命令--查询域名的DNS信息
 
 nslookup命令的英文全称为 “query Internet name server interactively ”。nslookup命令主要用来查询域名的DNS信息。在使用nslookup之前，先确保已经安装了它，nslookup属于bind-utils包下一个命令 。

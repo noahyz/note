@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # linux 守护进程的启动方法
 
 http://www.ruanyifeng.com/blog/2016/02/linux-daemon.html

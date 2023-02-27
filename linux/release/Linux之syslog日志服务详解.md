@@ -1,8 +1,6 @@
 ---
 title: Linux之syslog日志服务详解
 date: 2020-12-03 19:11:41
-categories:
-- linux
 tags:
 - syslog日志服务
 ---

@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ### __THREAD 解释
 
 Linux/FreeBSD 内核的源文件里常会出现这个。其实并不复杂，只是简单的宏定义，可以参考以下代码

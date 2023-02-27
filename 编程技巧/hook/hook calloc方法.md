@@ -1,3 +1,10 @@
+---
+title: 如何 hook calloc
+date: 2023-01-19 11:11:41
+tags:
+- hook
+---
+
 ### 一、如何 hook calloc
 
 dlsym 内部可能使用 calloc 分配内存。如果 hook calloc 的时候，使用 dlsym 可能会导致出现死循环。

@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## make 和 new
 
 make 的作用是初始化内置的数据结构，也就是切片、哈希表和 channel

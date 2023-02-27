@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # vim配置
 
 github上一个很好的项目：https://github.com/chxuan/vimplus

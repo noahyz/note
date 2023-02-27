@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## Aggregations 聚合
 
 ElasticSearch 大致有四种基本聚合类型

@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 c++ 操作文件：https://www.runoob.com/cplusplus/cpp-files-streams.html
 
 c++计算前N天、后N天的日期：https://blog.csdn.net/hellokandy/article/details/88401497

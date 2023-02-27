@@ -1,8 +1,6 @@
 ---
 title: 进程的栈跟踪之pstack命令
 date: 2021-10-16 12:11:41
-categories:
-- linux
 tags:
 - pstack
 ---

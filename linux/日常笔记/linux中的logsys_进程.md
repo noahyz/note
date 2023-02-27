@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## linux中的logsys 进程
 
 ## Linux 之 syslog 日志服务详解

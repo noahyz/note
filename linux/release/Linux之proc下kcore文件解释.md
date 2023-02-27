@@ -1,8 +1,6 @@
 ---
 title: /proc/kcore文件解释
 date: 2020-10-25 15:11:24
-categories:
-- linux
 tags:
 - linux 
 ---

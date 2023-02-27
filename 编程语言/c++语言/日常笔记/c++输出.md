@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 #### 一、c++ 中 setw 的用法
 
 `setw()` 用于控制输出之间的间隔，如下

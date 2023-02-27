@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## zookeeper在kafka中的存在
 
 **注意：kafka于 2.8 版本放弃 zookeeper，该版本将依赖于 zookeeper 的控制器改造成了基于 kafka Raft 的 Quorm 控制器**

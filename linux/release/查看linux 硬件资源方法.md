@@ -1,8 +1,6 @@
 ---
 title: 查看linux硬件资源方法
 date: 2020-10-9 13:11:24
-categories:
-- linux
 tags:
 - linux
 ---

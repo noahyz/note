@@ -1,8 +1,6 @@
 ---
 title: c和c++链接未定义的问题
 date: 2020-10-06 16:19:17
-categories:
-- linux
 tags:
 - c++链接
 ---

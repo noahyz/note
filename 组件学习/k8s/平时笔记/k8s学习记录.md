@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 1. 容器实际上是一个特殊的进程，主要利用了linux下的 namespace、cgroup机制
 2. namespace 机制是在创建(clone)一个进程的时候，指定参数
 3. 容器下的文件系统，使用chroot命令可以改变进程的根目录到指定位置 

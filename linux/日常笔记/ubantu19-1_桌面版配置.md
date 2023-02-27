@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # ubantu19.1 桌面版配置
 
 [https://www.cnblogs.com/zhoujun007/p/11809495.html](https://www.cnblogs.com/zhoujun007/p/11809495.html)

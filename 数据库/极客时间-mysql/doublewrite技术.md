@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## 一、脏页刷盘风险
 
 1. 数据库 IO 的最小单位是 16K （MySQL 默认，oracle 是 8K）

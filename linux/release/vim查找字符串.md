@@ -1,8 +1,6 @@
 ---
 title: vim查找字符串
 date: 2021-03-12 21:11:41
-categories:
-- linux
 tags:
 - vim
 ---

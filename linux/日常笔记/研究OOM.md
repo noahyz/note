@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## 研究OOM
 
 理解OOM机制： https://www.zhihu.com/question/21972130

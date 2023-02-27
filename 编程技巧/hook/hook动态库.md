@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 hook so库：https://github.com/esrrhs/hookso
 
 hook framework 库：https://github.com/asLody/whale

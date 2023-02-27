@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # Linux中如何查看大文件大目录
 
 搜索当前目录喜下超过800M的文件：find . -type f -size +800M

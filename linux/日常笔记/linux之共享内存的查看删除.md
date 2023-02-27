@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # linux之共享内存的查看删除
 
 #### 查看IPC信息的命令：ipcs [-a][-m|-q|-s]

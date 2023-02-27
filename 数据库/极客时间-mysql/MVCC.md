@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ### 三、MVCC 多版本并发控制
 
 （MVCC）（Multiversion concurrency control）同一个数据行，在数据库中存在多个版本号，这个版本号可以理解为当初操作这行数据的事务的事务ID。

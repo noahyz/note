@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## 一、redo log
 
 redo log 是 innodb 引擎特有的日志。是固定大小的，比如可以配置为一组 4 个文件，每个文件的大小是 1GB，是一个环状，如下

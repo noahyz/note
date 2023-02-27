@@ -1,8 +1,6 @@
 ---
 title: 查看执行某个进程中系统调用--strace命令
 date: 2020-10-25 15:31:24
-categories:
-- linux
 tags:
 - linux 
 ---

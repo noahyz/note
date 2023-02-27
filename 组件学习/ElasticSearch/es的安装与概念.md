@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 参考：https://www.kuangstudy.com/bbs/1354069127022583809
 
 ## 一、ElasticSearch安装

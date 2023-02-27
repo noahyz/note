@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## tencentcloud_cloudmonitor_agent 配置 prometheus 插件的 template 介绍
 
 ### 一、prometheus 数据格式

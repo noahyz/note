@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## pidstat
 
 在 sysstat 包中，pidstat 用于监控进程占用系统资源的情况。注意：pidstat 监控的是进程的指标，如果要看线程，加上 -t 选项 

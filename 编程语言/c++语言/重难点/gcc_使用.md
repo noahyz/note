@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## gcc 使用
 
 在windows 下动态链接库是以 .dll 后缀的文件，linux 是以 .so 为后缀的文件。

@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## 一、LRU 原理与实现
 
 LRU（Least Recent Used），最近被频繁访问的数据会具备更高的留存，淘汰那些不常被访问的数据

@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # 未总结---mysql 主从复制工具checksum的使用
 
 https://my.oschina.net/u/4362549/blog/4122580

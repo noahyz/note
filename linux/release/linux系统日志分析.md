@@ -1,8 +1,6 @@
 ---
 title: linux 系统日志分析
 date: 2020-10-25 14:11:24
-categories:
-- linux
 tags:
 - linux 日志
 ---

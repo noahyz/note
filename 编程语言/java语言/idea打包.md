@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 idea打包的jar运行报 xxx没有主清单属性：https://blog.csdn.net/banjing_1993/article/details/83073210
 
 https://blog.csdn.net/inthat/article/details/114444631

@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ### 3 POST和GET请求区别的常见误区
 
 #### 3.1 请求参数长度限制：GET请求长度最多1024kb，POST对请求数据没有限制

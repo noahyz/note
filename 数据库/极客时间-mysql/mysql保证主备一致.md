@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## MySQL 保证主备一致
 
 在主从的时候，建议将从库设置成只读（readonly）状态。有几个理由：

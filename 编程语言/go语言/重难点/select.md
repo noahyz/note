@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## select
 
 - select 控制结构中包含 default 语句时，能在 channel 上进行非阻塞的收发操作

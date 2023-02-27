@@ -1,8 +1,6 @@
 ---
 title: Linux系统进程状态解析
 date: 2020-12-20 14:19:17
-categories:
-- linux
 tags:
 - 进程状态
 ---

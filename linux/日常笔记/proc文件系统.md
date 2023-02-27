@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ### proc 文件系统
 
 https://blog.csdn.net/weixin_44966641/article/details/120529001

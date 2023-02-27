@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # dict 使用双引号作为键
 
 可以使用 json.dumps 来转换成json的字符串，其中的单引号也就变成了双引号。

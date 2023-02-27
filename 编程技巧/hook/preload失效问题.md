@@ -1,3 +1,10 @@
+---
+title: perload失效
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ### 一、preload 失效原因
 
 #### 1. RTLD_DEEPBIND 的使用

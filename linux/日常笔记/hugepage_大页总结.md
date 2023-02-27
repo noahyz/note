@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # hugepage 大页总结
 
 在 cat /proc/meminfo 里面可以查看大页信息

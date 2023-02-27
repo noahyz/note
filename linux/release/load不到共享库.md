@@ -1,8 +1,6 @@
 ---
 title: linux下load不到共享库
 date: 2021-03-07 21:11:41
-categories:
-- linux
 tags:
 - load
 ---
@@ -48,5 +46,4 @@ export LD_LIBRARY_PATH=/usr/local/mysql/lib:$LD_LIBRARY_PATH
 ```
 
 这中方法只能临时使用，用于当前客户端当前客户。
-
 

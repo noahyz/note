@@ -1,3 +1,10 @@
+---
+title: c++中 new 关键字内存初始化问题
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## c++的 new 关键字的内存初始化问题
 
 c++ 的 new 关键字在初始化时：
@@ -58,6 +65,10 @@ int main() {
 ---
 
 下来需要从源码角度去分析一下
+
+https://blog.csdn.net/u012920673/article/details/51176811?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161785613816780271551460%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=161785613816780271551460&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_v2~rank_v29-2-51176811.first_rank_v2_pc_rank_v29&utm_term=new%E5%AF%B9%E8%B1%A1%20%E6%98%AF%E5%90%A6%E5%8A%A0%E6%8B%AC%E5%8F%B7&spm=1018.2226.3001.4187
+
+
 
 
 

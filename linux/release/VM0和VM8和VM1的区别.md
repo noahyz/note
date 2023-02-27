@@ -1,8 +1,6 @@
 ---
 title: VM0和VM8和VM1的区别
 date: 2021-03-07 21:54:54
-categories:
-- linux
 tags:
 - 网卡
 ---

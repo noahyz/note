@@ -1,8 +1,6 @@
 ---
 title: Linux下守护进程的启动方法
 date: 2020-12-02 16:19:17
-categories:
-- linux
 tags:
 - 守护进程
 ---

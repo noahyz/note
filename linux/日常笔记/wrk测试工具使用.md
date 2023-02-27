@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## 一、性能测试神器 wrk 使用
 
 wrk 底层基于 epoll 和 kqueue 实现，能充分利用 CPU 资源，降低测试工具本身性能开销对测试结果准确性的影响。支持使用 lua 脚本自定义测试逻辑

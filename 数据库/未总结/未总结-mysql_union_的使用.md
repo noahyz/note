@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # 未总结---mysql union 的使用
 
 https://www.yiibai.com/mysql/compare-two-tables-to-find-unmatched-records-mysql.html

@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # linux 查看硬盘大小、内存大小等系统信息
 
 1. Linux CPU 大小

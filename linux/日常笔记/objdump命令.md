@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ### objdump 二进制文件分析
 
 - -f 显示文件头信息

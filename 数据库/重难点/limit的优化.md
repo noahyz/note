@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## MySQL limit 性能优化
 
 limit 的用法是 `limit [offset], [rows]`，其中 offset 表示偏移量，rows 表示需要返回的数据行

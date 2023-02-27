@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 https://cizixs.com/2018/01/13/linux-udp-packet-drop-debug/
 //todo
 // ethtool 命令的熟悉

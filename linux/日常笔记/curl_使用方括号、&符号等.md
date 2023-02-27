@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # curl 使用方括号、&符号等
 
 在使用curl的时候，遇到方括号、& 符号等

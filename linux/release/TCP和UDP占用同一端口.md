@@ -1,8 +1,6 @@
 ---
 title: 系统TCP/UDP占用同一端口
 date: 2021-03-07 21:54:54
-categories:
-- linux
 tags:
 - 端口
 ---

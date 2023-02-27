@@ -1,0 +1,140 @@
+---
+title: POD 类型说明
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
+C语言当前定义的基本数据类型有  int、char、float 等整数类型、浮点类型、枚举、void、指针、数组、结构等等。然后只要碰到一串 01010110010 之类的数据，编译器都可以正确的把它解析出来。但是在C++中出现继承、派生这些概念后，编译器无法解释。为了和旧的C数据相兼容，因此C++提出了POD数据结构概念。
+
+POD 是 Plain Old Data 的缩写，是 C++ 定义的一类数据结构概念，比如 int、float 等都是 POD 类型的。Plain 代表它是一个普通类型，Old 代表它是旧的，与几十年前的 C 语言兼容，那么就意味着可以使用 memcpy() 这种最原始的函数进行操作。两个系统进行交换数据，如果没有办法对数据进行语义检查和解释，那就只能以非常底层的数据形式进行交互，而拥有 POD 特征的类或者结构体通过二进制拷贝后依然能保持数据结构不变。也就是说，能用 C 的 memcpy() 等函数进行操作的类、结构体就是 POD 类型的数据。
+
+基本上谈到这个概念，一般都是说某某 class、struct、union 是不是 POD 类型的。
+
+### POD特征
+
+是不是 POD 类型的，可以用 is_pod::value 来判断。那什么样的类、结构体是拥有 POD 特性的呢？要求有两个：一个是它必须很平凡、很普通；另一个是布局有序。
+
+#### 1. 平凡
+
+满足下面的2个条件即可说是平凡特征的数据类型：
+
+1. 程序猿不能写构造/析构函数、拷贝/移动构造函数、拷贝/移动运算符，而是用编译器自动为我们生成，那这个数据就是平凡的。非要写的话，用c++11的default关键字。
+
+2. 不能有虚函数和虚基类
+
+如下代码，可以使用 std::is_trivial::value 来判断是否平凡
+
+```c++
+
+#include <iostream>
+
+class A {
+    A() {}
+};
+
+class B {
+};
+
+class C {
+    C() = default;
+};
+
+int main() {
+    std::cout << std::is_trivial<A>::value << std::endl; // 0
+    std::cout << std::is_trivial<B>::value << std::endl; // 1
+    std::cout << std::is_trivial<C>::value << std::endl; // 1
+}
+```
+
+拥有POD特征的类或者结构体通过二进制拷贝后依然能保持数据结构不变，也就是能用C的 memcpy() 等函数进行操作的类、结构体就是POD类型的数据。
+
+#### 2. 布局有序
+
+除了平凡之外，还对布局有要求。为了便于理解讲述，我们把非静态数据称为普通数据。
+
+1. 访问级别
+
+普通成员有相同的访问级别。例如下面的类，因为 a 和 b 的访问级别不一样，所以布局无序，自然就不是 POD 类型的数据。当然，如果 b 写成 static int b，例子中的 A 类就是 POD 类型的了。所以一定要看清每个字，是“普通成员”哦。
+
+```c++
+#include <iostream>
+
+class A {
+public:
+    int a;
+private:
+    int b;
+};
+
+int main() {
+    std::cout << std::is_pod<A>::value << std::endl; // 0
+}
+```
+
+a 是 public 成员，b是 private 成员。如果b 为 static 类型的，那类A就是POD特征的
+
+2. 成员是否为当前类
+
+```c++
+#include <iostream>
+
+class A {
+    int a;
+};
+
+class B : public A {
+    A a;
+    int b;
+};
+
+int main() {
+    std::cout << std::is_pod<B>::value << std::endl; // 0
+}
+```
+
+只要有父类，普通成员只能在其中一个类中，不可分散。因为 C 没有继承的概念，所以就别把普通成员在两个类中都写，写在一个类中就像 C 的风格了。如下图的代码，从 A 的角度看上边没有父类，就按上文的规则去判断是否是 POD 类型。从 B 的角度看上边有个父类，这个时候就要看父子两个是否都有普通成员了，都有的话肯定不行，只能其中一个有。
+
+```c++
+#include <iostream>
+
+class A {
+    int a;
+};
+
+class B : public A {
+    int b;
+};
+
+int main() {
+    std::cout << std::is_pod<A>::value << std::endl; // 1
+    std::cout << std::is_pod<B>::value << std::endl; // 0
+}
+```
+
+### 如何使用POD类型的数据
+
+```c++
+#include <iostream>
+
+class A {
+public:
+    int a;
+    int b;
+};
+
+int main() {
+    A a;
+    a.a = 1;
+    a.b = 2;
+
+    char* p = new char[sizeof(A)];
+    memcpy(p, &a, sizeof(A));
+
+    A* a2 = reinterpret_cast<A*>(p);
+    std::cout << a2->a << " " << a2->b << std::endl;
+}
+```
+
+具有 POD 性质的数据可以使用 C 语言中的 memcpy() 等底层函数，那我们来看看怎么用。
+

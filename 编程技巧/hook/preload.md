@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 hook 问题记录。（inline）
 
 https://zhuanlan.zhihu.com/p/44132805

@@ -1,8 +1,6 @@
 ---
 title: linux权限和umask值
 date: 2020-03-14 21:11:24
-categories:
-- linux
 tags:
 - umask
 ---

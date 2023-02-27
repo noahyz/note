@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # 未总结---mysql的binlog日志
 
 binlog 详细介绍：[https://www.cnblogs.com/kevingrace/p/6065088.html](https://www.cnblogs.com/kevingrace/p/6065088.html)

@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 ## linux下命令总结
 perf是Linux下的一款性能分析工具，能够进行函数级与指令级的热点查找。
 

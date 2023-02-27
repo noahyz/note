@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 https://km.woa.com/group/2804/articles/show/328826?kmref=search&from_page=1&no=5
 
 这两个步骤其实非常清楚，但是还是经常会遇到问题，主要在于插件用不了。针对插件用不了主要是由于插件没有正常获取，一般来说都是maven造成的，目前遇到过两个原因：

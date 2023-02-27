@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 # 未总结---python的多线程
 
 https://python-parallel-programmning-cookbook.readthedocs.io/zh_CN/latest/chapter2/08_Thread_synchronization_with_semaphores.html

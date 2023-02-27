@@ -1,8 +1,6 @@
 ---
 title: linux下段错误的产生原因及调试方法
 date: 2020-10-25 17:11:41
-categories:
-- linux
 tags:
 - 段错误 core
 ---

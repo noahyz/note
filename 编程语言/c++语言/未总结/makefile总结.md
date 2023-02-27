@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 linux 编译动态库和静态库
 https://blog.csdn.net/shaoxiaohu1/article/details/46943417
 

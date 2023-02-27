@@ -1,3 +1,10 @@
+---
+title: undefined
+date: 2023-01-19 11:11:41
+tags:
+- linux
+---
+
 
 kubeadm是官方社区推出的一个用于快速部署kubernetes集群的工具。
 
