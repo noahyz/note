@@ -107,7 +107,10 @@ atexit(prof_fdump);
 
 
 
+需要注意的场景
 
+- mem profiler start 之后，再次 start。或者 end 之后再次 end
+- 
 
 
 

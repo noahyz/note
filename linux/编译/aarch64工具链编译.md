@@ -107,6 +107,8 @@ sudo apt install libisl-dev
 cd $TOOLCHAIN/src/gcc-7.5.0
 mkdir build-aarch64 && cd build-aarch64
 
+export LIBRARY_PATH=
+
 ../configure --prefix=$AARCH64 \
 --host=aarch64-linux-gnu --target=aarch64-linux-gnu \
 --enable-languages=c,c++ \
