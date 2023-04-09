@@ -1,0 +1,124 @@
+---
+title: IO 多路复用之 epoll 问题记录
+---
+
+##  IO 多路复用之 epoll 问题记录
+
+记录使用 epoll 时的一些疑惑和问题
+
+### 一、epoll 可以监听普通文件吗
+
+先以一段代码来验证
+
+```c++
+#include <stdio.h>
+#include <sys/epoll.h>
+#include <fcntl.h>
+
+int main()
+{
+    int epfd, fd;
+    struct epoll_event ev, events[2];
+    int result;
+
+    epfd = epoll_create(10);
+    if (epfd < 0)
+    {
+        perror("epoll_create()");
+        return -1;
+    }
+
+    fd = open("./test.txt", O_RDONLY | O_CREAT);
+    if (fd < 0)
+    {
+        perror("open()");
+        return -1;
+    }
+
+    ev.events = EPOLLIN;
+
+    result = epoll_ctl(epfd, EPOLL_CTL_ADD, fd, &ev);
+    if (result < 0)
+    {
+        perror("epoll_ctl()");
+        return -1;
+    }
+
+    epoll_wait(epfd, events, 2, -1);
+
+    return 0;
+}
+```
+
+运行后结果如下：
+
+```shell
+noahyzhang@ubuntu2004:~/code/cpp/test/test_01$ ./main 
+epoll_ctl(): Operation not permitted
+noahyzhang@ubuntu2004:~/code/cpp/test/test_01$ sudo ./main 
+[sudo] password for noahyzhang: 
+epoll_ctl(): Operation not permitted
+```
+
+首先说明 epoll 不能监听普通文件。如下为 epoll 不能监听普通文件的原因。
+
+上述例子是 epoll_ctl 函数报错，所以我们深入 epoll_ctl 的源码入手。如下：
+
+```
+SYSCALL_DEFINE4(epoll_ctl, int, epfd, int, op, int, fd, 
+               struct epoll_event __user *, event) 
+{ 
+   int error; 
+   struct file *file, *tfile; 
+ 
+  ... 
+ 
+   error = -EBADF; 
+   file = fget(epfd);  // epoll 句柄对应的文件对象 
+   if (!file) 
+       goto error_return; 
+ 
+   tfile = fget(fd);   // 被监听的文件句柄对应的文件对象 
+   if (!tfile) 
+       goto error_fput; 
+ 
+   error = -EPERM; // Operation not permitted 错误号 
+   if (!tfile->f_op || !tfile->f_op->poll) 
+       goto error_tgt_fput; 
+ 
+  ... 
+ 
+error_tgt_fput: 
+   fput(tfile); 
+error_fput: 
+   fput(file); 
+error_return: 
+ 
+   return error; 
+} 
+```
+
+当呗监听的文件没有提供 poll 接口时，就会返回 EPERM 错误，这个错误就是 `Operation not permitted` 的错误号。因此，这个问题的原因是：被监听的文件没有提供 poll 接口。
+
+可以查看文件系统是否提供了 poll 接口（位于文件 `/fs/ext4/file.c`）
+
+```
+const struct file_operations ext4_file_operations = { 
+  .llseek         = generic_file_llseek, 
+  .read           = do_sync_read, 
+  .write          = do_sync_write, 
+  .aio_read       = generic_file_aio_read, 
+  .aio_write      = ext4_file_write, 
+  .unlocked_ioctl = ext4_ioctl, 
+  .mmap           = ext4_file_mmap, 
+  .open           = ext4_file_open, 
+ .release        = ext4_release_file, 
+ .fsync          = ext4_sync_file, 
+ .splice_read    = generic_file_splice_read, 
+ .splice_write   = generic_file_splice_write, 
+; 
+```
+
+ext4 文件的文件操作函数集被设置为 ext4_file_operations（也说就是：file->f_op = ext4_file_operations），从上面代码可以看出，ext4_file_operations 并没有提供 poll 接口。所以，当调用 epoll_ctl 把文件添加到 epoll 中进行监听时，就会返回 Operation not permitted 的错误。
+
+从上面的分析可知，当文件系统提供 poll 接口时，就可以把文件添加到 epoll 中进行监听。

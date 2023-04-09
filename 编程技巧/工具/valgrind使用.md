@@ -103,3 +103,7 @@ $ valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all ./main_cpp
 
 文档：https://valgrind.org/docs/manual/mc-manual.html
 
+https://ivanzz1001.github.io/records/post/cplusplus/2018/11/14/cpluscplus-valgrind_usage
+
+
+
