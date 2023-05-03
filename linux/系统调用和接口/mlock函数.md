@@ -1,0 +1,59 @@
+---
+title: mlock 相关函数详解
+---
+
+## mlock 相关函数详解
+
+### 一、mlock 和 munlock
+
+mlock 用于对内存加锁，锁住内存是为了防止这段内存被操作系统 swap 掉。此操作只有 root 权限才能运行
+
+```c++
+#include <sys/mman.h>
+
+int mlock(const void *addr, size_t len);
+int mlock2(const void *addr, size_t len, int flags);
+int munlock(const void *addr, size_t len);
+```
+
+系统调用 mlock 类函数允许程序在物理内存上锁住他的部分或者全部地址空间。这会阻止 linux 将这个内存页调度到交换空间（swap space），即使程序已有一段时间没有访问这段空间。
+
+举一个例子：内存页面的换入换出的时间延迟可能太长或者不可预知，安全性要求比较高的应用程序可能希望防止敏感的数据被唤出到交换空间，因此，攻击者可能从交换空间中恢复出这些数据。
+
+锁定一个内存区间，只需要简单的将指向区间开始的指针以及区间长度作为参数，然后调用 mlock。linux 分配内存到页（page）且每次只能锁定整页内存，被指定的内存涉及到的每个内存页都将被锁定。在 x86_64 linux 系统上，一般一页的大小为 4k。
+
+```c++
+const int alloc_size = 32 * 1024 * 1024;
+char* mem = malloc(alloc_size);
+mlock(mem, alloc_size);
+```
+
+需要注意，仅仅分配内存并调用 mlock 并不会为调用进程锁定这些内存，因此对应的分页可能是写时复制。所以为了能够分配到物理空间，需要操作这段空间，比如：
+
+```c++
+size_t page_size = getpagesize();
+for (int i = 0; i < alloc_size; i += page_size) {
+		mem[i] = 0;
+} 
+```
+
+想要解除锁定，可以调用 munlock，参数一致。
+
+### 二、mlockall
+
+如果想要将程序的全部地址空间锁定在物理空间，可以使用 mlockall。
+
+```c++
+int mlockall(int flags);
+int munlockall(void);
+```
+
+mlockall 这个系统调用接受一个参数
+
+- MCL_CURRENT：表示仅仅当前已分配的内存会被锁定，之后分配的内存则不会
+- MCL_FUTURE：表示锁定之后分配的所有内存
+- MCL_CURRENT | MCL_FUTURE：将已经分配的内存和将来分配的内存都锁定到物理内存中
+
+### 三、注意
+
+锁定大量的内存，尤其是通过 mlockall，是比较危险的。因为其他进程被迫争夺更少的内存资源使用权。如果内存不够用，则会出现频繁的交换进出物理内存，或者出现频繁的 swap 的换入、换出。甚至会产生 OOM。
