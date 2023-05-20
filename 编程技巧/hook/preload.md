@@ -15,6 +15,8 @@ https://blog.csdn.net/Cxinsect/article/details/100761916
 
 https://blog.csdn.net/caspiansea/article/details/51337727
 
+LD_PRELOAD 详解：https://blog.fesnel.com/blog/2009/08/25/preloading-with-multiple-symbol-versions/
+
 ### 问题记录
 
 #### 1. hook 系统调用注意

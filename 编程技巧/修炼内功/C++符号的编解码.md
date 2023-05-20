@@ -1,0 +1,62 @@
+---
+title: c++ 符号的编解码
+---
+
+## c++ 符号的编解码
+
+C++ 语言在编译的时候，符号会被编译器修改，转换成 C++ ABI 标识符，正向的过程称为 mangle，反向的过程称为为 demangle。
+
+### 一、ABI 说明
+
+ABI 全称为：Application Binary Interface 。 C/C++发展的过程中，二进制兼容一直是个问题。不同编译器厂商编译的二进制代码之间兼容性不好，甚至同一个编译器的不同版本之间兼容性也不好。之后 C 语言首先拥有了统一的 ABI，而 C++ 由于其特性的复杂性和 ABI 标准推进缓慢，一直没有自己的 ABI。
+
+这就造成的不同的编译器或者不同的编译器版本，编译后的名称可能有所不同。
+
+每个编译器都有一套自己内部的符号编译规则，比如对于 Linux 下 G++ 而言，如下的简单的规则：
+
+每个方法都是以 `_Z` 开头，对于嵌套的名字（比如命名空间中的名字或者类中间的名字，比如 `Class::Func`）后面紧跟 N。然后是各个命名空间和类的名字，每个名字前都是各自字符的长度，再以 E 结尾。（如果不是嵌套名字则不需要以 E 结尾）。
+
+比如对于 `_Z3foov` 就是的函数 `foo()`，v 表示参数类型为 void。再比如：`N::C::Func` 经过修饰后为 `_ZN1N1C4FuncE`，这个函数名后面跟参数类型。
+
+### 二、RTTI 和 type_info
+
+C++ 在编译时开启 RTTI（Run-Time Type Identification，运行时类型识别）特性时，可以在代码中使用 typeid 操作符，此操作符可以对一个变量或者一个类名使用，返回一个 type_info 对象的引用。编译时会为每种使用到 RTTI 的特性的 C++ 类都建立一个唯一的 type_info 对象，并且会包含继承关系，dynamic_cast 便是根据这个对象来判断某个基类对象的指针能否向下转换成子类对象的指针。如下：
+
+```
+    std::string str;
+    if (typeid(str) == typeid(std::string)) {
+        std::cout << "same type" << std::endl;
+    } else {
+        std::cout << "different type" << std::endl;
+    }
+```
+
+### 三、mangle 和 demangle
+
+typeinfo 中有一个 name 的方法，可以返回一个符号被 mangle 后的名字。
+
+```
+std::cout << typeid(std::string).name() << std::endl;
+// 打印出：NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+```
+
+关于 demangle，C++ 提供了一个函数 `abi::__cxa_demangle` 用于解析符号。还有比如 `c++filt` 这些工具都可以用来解析符号。
+
+```
+    
+struct empty {
+};
+
+template <typename T, int N>
+struct bar {
+
+};
+    
+    bar<empty, 17> u;
+    const std::type_info& ti = typeid(u);
+    realname = abi::__cxa_demangle(ti.name(), 0, 0, &status);
+    if (realname != nullptr) {
+        std::cout << ti.name() << "\t => " << realname << "\t : " << status << std::endl;
+        free(realname);
+    }
+```
