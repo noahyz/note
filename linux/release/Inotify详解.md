@@ -169,3 +169,8 @@ inotify 事件队列需要使用内核内存。因此内核对 inotify 机制设
 如上的 demo 中我们看到 inotify 接口的文件描述符支持阻塞和非阻塞模式，默认我们使用 read 是阻塞的。虽然 inotify 本身是异步通知的。如果我们有多个inotify 文件描述符呢？我们就无法在一个线程中去处理他们。
 
 所以我们可以使用 select、poll、epoll 这些多路复用 IO 来帮助我们监听多个描述符的可读、可写状态。不需要为每个描述符创建独立的线程进行阻塞读取，避免资源浪费。
+
+### 六、其他
+
+inotify_add_watch 报错 “No space left on device” 问题：https://askubuntu.com/questions/1088272/inotify-add-watch-failed-no-space-left-on-device
+

@@ -25,3 +25,11 @@ CpuProfiler 中 start 调用 EnableHandler 用于注册回调（prof_handler）�
 
 使用说明：https://goog-perftools.sourceforge.net/doc/heap_profiler.html
 
+一些文章如下：
+
+```
+使用解析：https://juejin.cn/post/6922037881410158605
+使用：https://zhuanlan.zhihu.com/p/539840046
+原理解析：https://zhuanlan.zhihu.com/p/343231398
+```
+
