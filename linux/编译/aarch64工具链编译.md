@@ -88,9 +88,26 @@ export PATH=$AARCH64/bin:$PATH
 cd $TOOLCHAIN/src/binutils-2.33.1
 mkdir build-aarch64 && cd build-aarch64
 
-../configure --prefix=$AARCH64 \
+../configure --prefix=/data/App/toolchain/target/out_aarch64/binutils-2.33.1 \
 --build=x86_64-linux-gnu --host=aarch64-linux-gnu --target=aarch64-linux-gnu \
---disable-multilib
+--disable-multilib --enable-shared
+
+mkdir build_x86_64 && cd build_x86_64
+../configure --prefix=/data/App/toolchain/target/out_x86_64/binutils-2.33.1 \
+--build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu \
+--disable-multilib --enable-shared
+
+gcc 9.2.1 编译
+export CC=aarch64-none-linux-gnu-gcc
+export CXX=aarch64-none-linux-gnu-g++
+export LD=aarch64-none-linux-gnu-ld
+export AR=aarch64-none-linux-gnu-ar
+export AS=aarch64-none-linux-gnu-as
+export RANLIB=aarch64-none-linux-gnu-ranlib
+
+../configure --prefix=/data/App/toolchain/target/out_aarch64_gcc921/binutils-2.33.1 \
+--build=x86_64-linux-gnu --host=aarch64-linux-gnu --target=aarch64-linux-gnu \
+--disable-multilib --enable-shared
 
 make -j8
 make install
