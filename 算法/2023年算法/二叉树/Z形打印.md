@@ -6,7 +6,7 @@ title: 二叉树的 Z 形状打印
 
 如下，有一个二叉树，请按照 Z 字形打印
 
-<img src="../image/二叉树的Z形打印.png" alt="s" style="zoom:33%;" />
+<img src="../image/二叉树的Z形打印.png" alt="s" style="zoom:100%;" />
 
 打印结果为：
 
