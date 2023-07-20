@@ -183,3 +183,21 @@ make install
 先让这个环境变量消失。 export LD_LIBRARY_PATH=
 ```
 
+编译 gcc-9.2.0
+
+```
+下载 gcc 9.2.0
+http://mirror.linux-ia64.org/gnu/gcc/releases/gcc-9.2.0/
+
+cd gcc-9.2.0
+bash contrib/download_prerequisites
+
+mkdir build_x86_64 && cd build_x86_64
+../configure --prefix=/data/App/toolchain/target/out_x86_64/gcc-9.2.0 \
+--host=x86_64-linux-gnu --target=x86_64-linux-gnu \
+--enable-languages=c,c++ \
+--disable-multilib
+
+make -j10
+```
+
