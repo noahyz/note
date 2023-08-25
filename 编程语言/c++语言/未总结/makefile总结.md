@@ -16,3 +16,4 @@ makefile 多目录多文件：https://blog.csdn.net/jacke121/article/details/616
 
 判断目录或者文件是否存在：https://blog.csdn.net/tianyexing2008/article/details/113925962
 
+makefile 教程：https://fanzheng.org/archives/43

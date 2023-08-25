@@ -1,0 +1,270 @@
+<mxfile host="app.diagrams.net" modified="2023-08-16T03:07:11.064Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="wYPLmc8i_1bbvEFkFjDp" version="21.6.8" type="device">
+  <diagram name="第 1 页" id="ErQde9mNS1H9I5Xh36gf">
+    <mxGraphModel dx="2901" dy="2319" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-30" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="150" y="120" width="140" height="153" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-12" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;PCB&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-30">
+          <mxGeometry x="45" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-13" value="mem_block_desc[7]&lt;br&gt;内存块描述符数组" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-30">
+          <mxGeometry y="69.5" width="140" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-28" value="......" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-30">
+          <mxGeometry y="31" width="140" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-29" value="......" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-30">
+          <mxGeometry y="115" width="140" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-34" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="340" y="-53.5" width="230" height="494" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-15" value="" style="group" vertex="1" connectable="0" parent="Ro4r3nX-I-PJdhJgehut-34">
+          <mxGeometry x="30" width="200" height="162" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-7" value="block_size：16&lt;br&gt;内存块大小" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-15">
+          <mxGeometry y="32" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-8" value="blocks_per_arena&lt;br&gt;本 arena 中可容纳此 mem_block 的数量" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-15">
+          <mxGeometry y="72" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-9" value="free_list&lt;br&gt;目前可用的 mem_block 链表" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-15">
+          <mxGeometry y="122" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-14" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;mem_block_desc&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-15">
+          <mxGeometry x="35" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-21" value="" style="group" vertex="1" connectable="0" parent="Ro4r3nX-I-PJdhJgehut-34">
+          <mxGeometry x="30" y="332" width="200" height="162" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-22" value="block_size：1024&lt;br&gt;内存块大小" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-21">
+          <mxGeometry y="32" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-23" value="blocks_per_arena&lt;br&gt;本 arena 中可容纳此 mem_block 的数量" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-21">
+          <mxGeometry y="72" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-24" value="free_list&lt;br&gt;目前可用的 mem_block 链表" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-21">
+          <mxGeometry y="122" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-25" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;mem_block_desc&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-21">
+          <mxGeometry x="35" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-32" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-34">
+          <mxGeometry y="36" width="20" height="458" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-33" value="block_size：32&lt;br&gt;block_size：64&lt;br&gt;block_size：128&lt;br&gt;block_size：256&lt;br&gt;block_size：512" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-34">
+          <mxGeometry x="30" y="202" width="200" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Ro4r3nX-I-PJdhJgehut-13" target="Ro4r3nX-I-PJdhJgehut-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-45" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="690" y="-109" width="160" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-39" value="" style="group" vertex="1" connectable="0" parent="Ro4r3nX-I-PJdhJgehut-45">
+          <mxGeometry width="160" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-2" value="mem_block_desc 指针" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-39">
+          <mxGeometry y="40" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-4" value="large" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-39">
+          <mxGeometry y="70" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-5" value="cnt&lt;br&gt;当 large = true，表示页框数&lt;br&gt;当 large = false，表示空闲内存块数" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-39">
+          <mxGeometry y="100" width="160" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-6" value="arena&lt;br&gt;（4K大小）" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-39">
+          <mxGeometry x="35" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-41" value="mem_block（16）" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-45">
+          <mxGeometry y="190" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-42" value="mem_block（16）" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-45">
+          <mxGeometry y="220" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-43" value="......" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-45">
+          <mxGeometry y="250" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-44" value="mem_block（16）" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-45">
+          <mxGeometry y="280" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-46" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="1150" y="-109" width="160" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-47" value="" style="group" vertex="1" connectable="0" parent="Ro4r3nX-I-PJdhJgehut-46">
+          <mxGeometry width="160" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-48" value="mem_block_desc 指针" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-47">
+          <mxGeometry y="40" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-49" value="large" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-47">
+          <mxGeometry y="70" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-50" value="cnt&lt;br&gt;当 large = true，表示页框数&lt;br&gt;当 large = false，表示空闲内存块数" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-47">
+          <mxGeometry y="100" width="160" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-51" value="arena&lt;br&gt;（4K大小）" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-47">
+          <mxGeometry x="35" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-52" value="mem_block（1024）" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-46">
+          <mxGeometry y="190" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-53" value="mem_block（1024）" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-46">
+          <mxGeometry y="220" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-54" value="......" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-46">
+          <mxGeometry y="250" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-55" value="mem_block（1024）" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-46">
+          <mxGeometry y="280" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-56" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="Ro4r3nX-I-PJdhJgehut-9" target="Ro4r3nX-I-PJdhJgehut-41">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="Ro4r3nX-I-PJdhJgehut-52">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570" y="425" as="sourcePoint" />
+            <mxPoint x="1130" y="100" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1120" y="425" />
+              <mxPoint x="1120" y="96" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-58" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="930" y="-109" width="160" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-59" value="" style="group" vertex="1" connectable="0" parent="Ro4r3nX-I-PJdhJgehut-58">
+          <mxGeometry width="160" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-60" value="mem_block_desc 指针" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-59">
+          <mxGeometry y="40" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-61" value="large" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-59">
+          <mxGeometry y="70" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-62" value="cnt&lt;br&gt;当 large = true，表示页框数&lt;br&gt;当 large = false，表示空闲内存块数" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-59">
+          <mxGeometry y="100" width="160" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-63" value="arena&lt;br&gt;（4K大小）" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-59">
+          <mxGeometry x="35" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-64" value="mem_block（xx）" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-58">
+          <mxGeometry y="190" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-65" value="mem_block（xx）" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-58">
+          <mxGeometry y="220" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-66" value="......" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-58">
+          <mxGeometry y="250" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-67" value="mem_block（xx）" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-58">
+          <mxGeometry y="280" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-69" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="Ro4r3nX-I-PJdhJgehut-33" target="Ro4r3nX-I-PJdhJgehut-64">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="220" />
+              <mxPoint x="900" y="220" />
+              <mxPoint x="900" y="89" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-83" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="1380" y="-109" width="160" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-74" value="" style="group" vertex="1" connectable="0" parent="Ro4r3nX-I-PJdhJgehut-83">
+          <mxGeometry width="160" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-75" value="mem_block_desc 指针" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-74">
+          <mxGeometry y="40" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-76" value="large" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-74">
+          <mxGeometry y="70" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-77" value="cnt&lt;br&gt;当 large = true，表示页框数&lt;br&gt;当 large = false，表示空闲内存块数" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-74">
+          <mxGeometry y="100" width="160" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-78" value="arena&lt;br&gt;（4K大小）" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-74">
+          <mxGeometry x="35" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-79" value="mem_block&lt;br&gt;大于1024字节的申请&lt;br&gt;内存分配以页为单位" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-83">
+          <mxGeometry y="190" width="160" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-84" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="700" y="-329" width="840" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-40" value="页内存&lt;br&gt;分配池" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-84">
+          <mxGeometry x="355" width="130" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-70" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;direction=south;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-84">
+          <mxGeometry y="190" width="840" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-71" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="Ro4r3nX-I-PJdhJgehut-84" source="Ro4r3nX-I-PJdhJgehut-40" target="Ro4r3nX-I-PJdhJgehut-70">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-90" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="Ro4r3nX-I-PJdhJgehut-87" target="Ro4r3nX-I-PJdhJgehut-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="100" y="445" />
+              <mxPoint x="100" y="201" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-91" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;小于等于1024字节&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Ro4r3nX-I-PJdhJgehut-90">
+          <mxGeometry x="0.075" y="-4" relative="1" as="geometry">
+            <mxPoint x="-4" y="24" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-92" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" target="Ro4r3nX-I-PJdhJgehut-79">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-10" y="475" as="sourcePoint" />
+            <mxPoint x="1370" y="111" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1350" y="475" />
+              <mxPoint x="1350" y="111" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-93" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;大于1024字节&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Ro4r3nX-I-PJdhJgehut-92">
+          <mxGeometry x="-0.912" relative="1" as="geometry">
+            <mxPoint x="53" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-87" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;内存申请&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-100" y="430" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-94" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;内存释放&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-110" y="800" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-95" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;mem_block&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="805" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-106" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="560" y="910" width="160" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-107" value="" style="group" vertex="1" connectable="0" parent="Ro4r3nX-I-PJdhJgehut-106">
+          <mxGeometry width="160" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-108" value="mem_block_desc 指针" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-107">
+          <mxGeometry y="40" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-109" value="large" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-107">
+          <mxGeometry y="70" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-110" value="cnt&lt;br&gt;当 large = true，表示页框数&lt;br&gt;当 large = false，表示空闲内存块数" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-107">
+          <mxGeometry y="100" width="160" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-111" value="arena&lt;br&gt;（4K大小）" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-107">
+          <mxGeometry x="35" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ro4r3nX-I-PJdhJgehut-112" value="mem_block&lt;br&gt;大于1024字节的申请&lt;br&gt;内存分配以页为单位" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Ro4r3nX-I-PJdhJgehut-106">
+          <mxGeometry y="190" width="160" height="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
