@@ -1,8 +1,5 @@
 ---
-title: undefined
-date: 2023-01-19 11:11:41
-tags:
-- linux
+title: 分布式 ID 的生成
 ---
 
 ## 分布式ID

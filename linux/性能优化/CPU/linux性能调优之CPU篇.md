@@ -204,8 +204,8 @@ Linux 3.10.0-1160.el7.x86_64 (localhost.localdomain)    01/13/2022      _x86_64_
 08:02:21 AM     0       493      1.44      0.00   39056   5104   0.27  /usr/lib/systemd/systemd-journald 
 08:02:21 AM     0       647      0.02      0.00   55532    856   0.05  /sbin/auditd 
 ```
-- minflt/s 任务每秒发生的次要错误，不需要从磁盘中加载页
-- majflt/s 任务每秒发生的主要错误，需要从磁盘
+- minflt/s 任务每秒发生的 minor faults（缺页异常），不需要从磁盘中加载页
+- majflt/s 任务每秒发生的 major faults（缺页异常），需要从磁盘
 - VSZ 虚拟内存大小，单位(KB)
 - RSS 物理内存大小，单位(KB)
 
