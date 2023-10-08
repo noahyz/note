@@ -7,3 +7,9 @@ tags:
 
 ## perf 工具学习
 
+```
+抓火焰图：
+perf record -F 99 -a -g -p $PID -- sleep 180
+perf script -i perf.data > perf.unfold
+```
+
