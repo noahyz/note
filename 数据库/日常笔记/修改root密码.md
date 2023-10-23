@@ -64,6 +64,8 @@ alter user "root"@"localhost" identified with mysql_native_password by "1234";  
 ```
 flush privileges;
 alter user "root"@"localhost" identified with mysql_native_password by "1234";  // 修改密码
+create user root@'%' identified  by '1234';
+grant all privileges on *.* to root@'%' with grant option;
 ```
 
 如果出现报错，可以先执行 `flush privileges;`

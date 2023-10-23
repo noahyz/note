@@ -1,0 +1,4 @@
+- [返回上一级 [prometheus]](/编程语言/源码研读/prometheus/)
+- [日常笔记](/编程语言/源码研读/prometheus/日常笔记/)
+  - [prometheus_client使用](/编程语言/源码研读/prometheus/日常笔记/prometheus_client使用.md)
+  - [prometheus_server配置文件](/编程语言/源码研读/prometheus/日常笔记/prometheus_server配置文件.md)

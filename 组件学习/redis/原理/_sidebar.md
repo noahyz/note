@@ -1,0 +1,7 @@
+- [返回上一级 [redis]](/组件学习/redis/)
+- [原理](/组件学习/redis/原理/)
+  - [redis和mysql联系和区别](/组件学习/redis/原理/redis和mysql联系和区别.md)
+  - [redis和数据结构使用场景](/组件学习/redis/原理/redis和数据结构使用场景.md)
+  - [redis快的原因以及瓶颈](/组件学习/redis/原理/redis快的原因以及瓶颈.md)
+  - [事务和乐观锁](/组件学习/redis/原理/事务和乐观锁.md)
+  - [缓存穿透和雪崩](/组件学习/redis/原理/缓存穿透和雪崩.md)

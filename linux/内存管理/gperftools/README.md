@@ -1,0 +1,3 @@
+- [返回上一级 [内存管理]](/linux/内存管理/)
+- [gperftools](/linux/内存管理/gperftools/)
+  - [heap-profiler原理探究](/linux/内存管理/gperftools/heap-profiler原理探究.md)
