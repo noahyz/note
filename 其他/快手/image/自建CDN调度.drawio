@@ -1,0 +1,25 @@
+<mxfile host="app.diagrams.net" modified="2023-11-10T03:21:31.120Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="FlnTKQ-mc9HnOq4paVra" version="22.1.0" type="device">
+  <diagram name="第 1 页" id="C8FrO5xH6Ym7qFRzUvTT">
+    <mxGraphModel dx="1242" dy="796" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Zxbccq_VnTQxbpww5rgW-1" value="国内点播调度表" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="274" y="320" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Zxbccq_VnTQxbpww5rgW-2" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;调度SDK&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Zxbccq_VnTQxbpww5rgW-3" value="国内直播调度表" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="274" y="420" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Zxbccq_VnTQxbpww5rgW-4" value="国内自建点播调度服务" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="320" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Zxbccq_VnTQxbpww5rgW-5" value="国内自建直播调度服务" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="420" width="150" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
