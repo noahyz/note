@@ -309,3 +309,15 @@ ssh root@remotesystem 'tcpdump -s0 -c 1000 -nn -w - not port 22' | /Applications
 
 参考博文：https://www.cnblogs.com/wongbingming/p/13212306.html
 
+---
+
+如果要抓取本地环回的报文，就需要设定网卡，如下
+
+```
+tcpdump -nnvv -i lo port 80 -w /tmp/http1.cap
+```
+
+
+
+
+

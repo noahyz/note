@@ -1,0 +1,150 @@
+<mxfile host="app.diagrams.net" modified="2024-06-09T08:21:57.863Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="3YtEJx-5RGhfq09JinV_" version="24.5.2" type="device">
+  <diagram name="第 1 页" id="SlnkKpW4d6h3rL20bWmf">
+    <mxGraphModel dx="640" dy="424" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ywwLEsBJWS_NvXJhA2fh-1" target="ywwLEsBJWS_NvXJhA2fh-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-1" value="加锁流程" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="97.5" y="130" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ywwLEsBJWS_NvXJhA2fh-2" target="ywwLEsBJWS_NvXJhA2fh-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-12" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;加锁成功&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ywwLEsBJWS_NvXJhA2fh-11">
+          <mxGeometry x="-0.8595" relative="1" as="geometry">
+            <mxPoint x="4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ywwLEsBJWS_NvXJhA2fh-2" target="ywwLEsBJWS_NvXJhA2fh-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-14" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;不能加锁，需要等待&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ywwLEsBJWS_NvXJhA2fh-13">
+          <mxGeometry x="-0.2" y="1" relative="1" as="geometry">
+            <mxPoint y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-2" value="尝试加锁一次" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="87.5" y="210" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ywwLEsBJWS_NvXJhA2fh-4" target="ywwLEsBJWS_NvXJhA2fh-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-4" value="订阅 redis 频道&lt;div&gt;等待消息&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="290" width="95" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ywwLEsBJWS_NvXJhA2fh-5" target="ywwLEsBJWS_NvXJhA2fh-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-17" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;不能加锁，需要等待&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ywwLEsBJWS_NvXJhA2fh-16">
+          <mxGeometry x="-0.2122" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ywwLEsBJWS_NvXJhA2fh-5" target="ywwLEsBJWS_NvXJhA2fh-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-20" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;加锁成功&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ywwLEsBJWS_NvXJhA2fh-18">
+          <mxGeometry x="-0.7779" relative="1" as="geometry">
+            <mxPoint x="4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-5" value="继续尝试加锁" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="95" y="370" width="85" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ywwLEsBJWS_NvXJhA2fh-7" target="ywwLEsBJWS_NvXJhA2fh-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="138" y="550" />
+              <mxPoint x="61" y="550" />
+              <mxPoint x="61" y="385" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-9" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;收到消息&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ywwLEsBJWS_NvXJhA2fh-8">
+          <mxGeometry x="-0.8891" relative="1" as="geometry">
+            <mxPoint y="3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-7" value="阻塞等待 redis 的&lt;div&gt;频道消息&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="81.25" y="470" width="112.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-10" value="加锁成功&lt;div&gt;返回结果&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="210" y="550" width="86" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ywwLEsBJWS_NvXJhA2fh-21" target="ywwLEsBJWS_NvXJhA2fh-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-21" value="加锁内部逻辑" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="368.75" y="130" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ywwLEsBJWS_NvXJhA2fh-22" target="ywwLEsBJWS_NvXJhA2fh-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-22" value="执行 Lua 脚本加锁" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="215" width="107.5" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ywwLEsBJWS_NvXJhA2fh-23" target="ywwLEsBJWS_NvXJhA2fh-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-29" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;加锁成功&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ywwLEsBJWS_NvXJhA2fh-28">
+          <mxGeometry x="-0.1714" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ywwLEsBJWS_NvXJhA2fh-23" target="ywwLEsBJWS_NvXJhA2fh-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-37" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;加锁失败&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ywwLEsBJWS_NvXJhA2fh-36">
+          <mxGeometry x="-0.7642" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-23" value="是否加锁&lt;div&gt;成功&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380.75" y="265" width="66" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ywwLEsBJWS_NvXJhA2fh-24" target="ywwLEsBJWS_NvXJhA2fh-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-32" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;未设置&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ywwLEsBJWS_NvXJhA2fh-31">
+          <mxGeometry x="-0.1061" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="ywwLEsBJWS_NvXJhA2fh-24" target="ywwLEsBJWS_NvXJhA2fh-33">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="434.21" y="550.03" as="targetPoint" />
+            <mxPoint x="413.9957142857142" y="420.0044897959184" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="500" y="385" />
+              <mxPoint x="500" y="520" />
+              <mxPoint x="414" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-39" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;已设置&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ywwLEsBJWS_NvXJhA2fh-38">
+          <mxGeometry x="-0.8937" y="3" relative="1" as="geometry">
+            <mxPoint x="6" y="3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-24" value="是否设置&lt;div&gt;过期时间&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="379" y="360" width="70" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ywwLEsBJWS_NvXJhA2fh-25" target="ywwLEsBJWS_NvXJhA2fh-33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-25" value="运行看门狗协程，&lt;div&gt;定期续期&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="357.25" y="460" width="113" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-33" value="加锁成功&lt;div&gt;返回结果&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="374" y="550" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ywwLEsBJWS_NvXJhA2fh-35" value="加锁失败&lt;div&gt;返回结果&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="550" width="80" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
