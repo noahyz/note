@@ -1,9 +1,0 @@
----
-title: undefined
-date: 2023-01-19 11:11:41
-tags:
-- linux
----
-
-遇到一个 yum 问题。访问 yum 源一直返回空，加一个排查思路，是 dns 解析的地址有问题。在 `/etc/resolv.conf` 中添加正确的 dns ，注意将新的 dns 配置放在文件最上方，它是有顺序的。
-
