@@ -7,5 +7,7 @@
   - [sed](/linux/命令工具/sed.md)
   - [sysdig](/linux/命令工具/sysdig.md)
   - [top](/linux/命令工具/top.md)
+  - [wget](/linux/命令工具/wget.md)
   - [使用valgrind查找性能问题](/linux/命令工具/使用valgrind查找性能问题.md)
+  - [常用命令](/linux/命令工具/常用命令.md)
   - [火焰图生成步骤](/linux/命令工具/火焰图生成步骤.md)

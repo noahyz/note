@@ -1,5 +1,7 @@
 - [返回上一级 [c++语言]](/编程语言/c++语言/)
 - [编译](/编程语言/c++语言/编译/)
+  - [bazel](/编程语言/c++语言/编译/bazel/)
+    - [构建](/编程语言/c++语言/编译/bazel/构建.md)
   - [cmake](/编程语言/c++语言/编译/cmake/)
     - [add_subdirectory详解](/编程语言/c++语言/编译/cmake/add_subdirectory详解.md)
     - [cmake](/编程语言/c++语言/编译/cmake/cmake.md)

@@ -1,6 +1,7 @@
 - [返回上一级 [linux]](/linux/)
 - [编译](/linux/编译/)
   - [aarch64工具链编译](/linux/编译/aarch64工具链编译.md)
+  - [yum升级工具](/linux/编译/yum升级工具.md)
   - [交叉编译问题记录](/linux/编译/交叉编译问题记录.md)
   - [搭建aarch64工具链](/linux/编译/搭建aarch64工具链.md)
   - [编译三方库](/linux/编译/编译三方库.md)
