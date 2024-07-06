@@ -1,2 +1,0 @@
-- [返回上一级 [monitor]](/项目/工作经历/monitor/)
-- [image](/项目/工作经历/monitor/image/)

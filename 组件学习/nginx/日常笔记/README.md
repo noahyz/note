@@ -1,7 +1,0 @@
-- [返回上一级 [nginx]](/组件学习/nginx/)
-- [日常笔记](/组件学习/nginx/日常笔记/)
-  - [image](/组件学习/nginx/日常笔记/image/)
-  - [nginx架构](/组件学习/nginx/日常笔记/nginx架构.md)
-  - [nginx的负载均衡策略](/组件学习/nginx/日常笔记/nginx的负载均衡策略.md)
-  - [nginx配置](/组件学习/nginx/日常笔记/nginx配置.md)
-  - [nginx高并发](/组件学习/nginx/日常笔记/nginx高并发.md)

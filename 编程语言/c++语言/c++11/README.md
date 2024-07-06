@@ -1,5 +1,0 @@
-- [返回上一级 [c++语言]](/编程语言/c++语言/)
-- [c++11](/编程语言/c++语言/c++11/)
-  - [enable_shared_from_this用法](/编程语言/c++语言/c++11/enable_shared_from_this用法.md)
-  - [function和bind的使用](/编程语言/c++语言/c++11/function和bind的使用.md)
-  - [断言的使用](/编程语言/c++语言/c++11/断言的使用.md)

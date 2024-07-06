@@ -1,3 +1,0 @@
-- [返回上一级 [前端]](/编程语言/前端/)
-- [javaScript](/编程语言/前端/javaScript/)
-  - [基础](/编程语言/前端/javaScript/基础.md)

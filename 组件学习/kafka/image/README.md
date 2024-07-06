@@ -1,2 +1,0 @@
-- [返回上一级 [kafka]](/组件学习/kafka/)
-- [image](/组件学习/kafka/image/)

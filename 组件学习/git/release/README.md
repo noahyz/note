@@ -1,8 +1,0 @@
-- [返回上一级 [git]](/组件学习/git/)
-- [release](/组件学习/git/release/)
-  - [git本地库](/组件学习/git/release/git本地库.md)
-  - [git标签](/组件学习/git/release/git标签.md)
-  - [git远程库](/组件学习/git/release/git远程库.md)
-  - [ignore文件](/组件学习/git/release/ignore文件.md)
-  - [分支管理](/组件学习/git/release/分支管理.md)
-  - [子模块](/组件学习/git/release/子模块.md)

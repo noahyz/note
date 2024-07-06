@@ -1,5 +1,0 @@
-- [返回上一级 [内存管理]](/linux/内存管理/)
-- [valgrind](/linux/内存管理/valgrind/)
-  - [valgrind使用](/linux/内存管理/valgrind/valgrind使用.md)
-  - [内存泄漏检测和性能分析](/linux/内存管理/valgrind/内存泄漏检测和性能分析.md)
-  - [工具](/linux/内存管理/valgrind/工具.md)

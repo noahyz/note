@@ -1,6 +1,0 @@
-- [返回上一级 [编程技巧]](/编程技巧/)
-- [工具](/编程技巧/工具/)
-  - [asan使用](/编程技巧/工具/asan使用.md)
-  - [gcc的wrap选项使用](/编程技巧/工具/gcc的wrap选项使用.md)
-  - [gperftools](/编程技巧/工具/gperftools.md)
-  - [profiler工具](/编程技巧/工具/profiler工具.md)

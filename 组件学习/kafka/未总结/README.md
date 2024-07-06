@@ -1,4 +1,0 @@
-- [返回上一级 [kafka]](/组件学习/kafka/)
-- [未总结](/组件学习/kafka/未总结/)
-  - [kafka如何保证吞吐量和速度](/组件学习/kafka/未总结/kafka如何保证吞吐量和速度.md)
-  - [kfaka学习](/组件学习/kafka/未总结/kfaka学习.md)

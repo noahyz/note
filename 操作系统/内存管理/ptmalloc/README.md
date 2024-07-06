@@ -1,8 +1,0 @@
-- [返回上一级 [内存管理]](/linux/内存管理/)
-- [ptmalloc](/linux/内存管理/ptmalloc/)
-  - [image](/linux/内存管理/ptmalloc/image/)
-  - [malloc_chunk详解](/linux/内存管理/ptmalloc/malloc_chunk详解.md)
-  - [原理](/linux/内存管理/ptmalloc/原理.md)
-  - [原理2](/linux/内存管理/ptmalloc/原理2.md)
-  - [啊未总结](/linux/内存管理/ptmalloc/啊未总结.md)
-  - [精读ptmalloc](/linux/内存管理/ptmalloc/精读ptmalloc.md)

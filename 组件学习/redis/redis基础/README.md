@@ -1,8 +1,0 @@
-- [返回上一级 [redis]](/组件学习/redis/)
-- [redis基础](/组件学习/redis/redis基础/)
-  - [NoSQL](/组件学习/redis/redis基础/NoSQL.md)
-  - [image](/组件学习/redis/redis基础/image/)
-  - [redis入门](/组件学习/redis/redis基础/redis入门.md)
-  - [redis发布订阅](/组件学习/redis/redis基础/redis发布订阅.md)
-  - [批量操作](/组件学习/redis/redis基础/批量操作.md)
-  - [概述](/组件学习/redis/redis基础/概述.md)

@@ -1,2 +1,0 @@
-- [返回上一级 [CPU]](/linux/性能优化/CPU/)
-- [image](/linux/性能优化/CPU/image/)

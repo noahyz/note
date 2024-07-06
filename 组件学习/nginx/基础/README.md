@@ -1,3 +1,0 @@
-- [返回上一级 [nginx]](/组件学习/nginx/)
-- [基础](/组件学习/nginx/基础/)
-  - [Untitled](/组件学习/nginx/基础/Untitled.md)

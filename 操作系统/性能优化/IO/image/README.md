@@ -1,2 +1,0 @@
-- [返回上一级 [IO]](/linux/性能优化/IO/)
-- [image](/linux/性能优化/IO/image/)

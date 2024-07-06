@@ -1,6 +1,0 @@
-- [返回上一级 [手写操作系统]](/项目/手写操作系统/)
-- [boot-loader](/项目/手写操作系统/boot-loader/)
-  - [1.计算机的启动](/项目/手写操作系统/boot-loader/1.计算机的启动.md)
-  - [2.写一个MBR程序](/项目/手写操作系统/boot-loader/2.写一个MBR程序.md)
-  - [3.加载内核](/项目/手写操作系统/boot-loader/3.加载内核.md)
-  - [Linux从开机加电到执行main函数的过程](/项目/手写操作系统/boot-loader/Linux从开机加电到执行main函数的过程.md)

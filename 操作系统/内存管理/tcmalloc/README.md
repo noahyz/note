@@ -1,5 +1,0 @@
-- [返回上一级 [内存管理]](/linux/内存管理/)
-- [tcmalloc](/linux/内存管理/tcmalloc/)
-  - [image](/linux/内存管理/tcmalloc/image/)
-  - [介绍](/linux/内存管理/tcmalloc/介绍.md)
-  - [原理](/linux/内存管理/tcmalloc/原理.md)

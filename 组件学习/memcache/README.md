@@ -1,3 +1,0 @@
-- [返回上一级 [组件学习]](/组件学习/)
-- [memcache](/组件学习/memcache/)
-  - [memcache使用](/组件学习/memcache/memcache使用.md)

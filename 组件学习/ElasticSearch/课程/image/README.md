@@ -1,2 +1,0 @@
-- [返回上一级 [课程]](/组件学习/ElasticSearch/课程/)
-- [image](/组件学习/ElasticSearch/课程/image/)

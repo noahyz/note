@@ -1,3 +1,0 @@
-- [返回上一级 [内存管理]](/linux/内存管理/)
-- [electric-fence](/linux/内存管理/electric-fence/)
-  - [介绍](/linux/内存管理/electric-fence/介绍.md)
