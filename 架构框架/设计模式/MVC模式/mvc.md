@@ -19,7 +19,7 @@ tags:
 #### 2. MVC 的常见形式：
 
 - 第一种实现
-    <img src="../image/MVC第一种实现.png" alt="s" style="zoom:33%;" />
+    <img src="./image/MVC第一种实现.png" alt="s" style="zoom:33%;" />
 
     用户请求发送给 Controller，Controller 是大总管，需要主动调用 Model 层的接口去取得实际需要的数据对象，之后将数据对象发送给需要渲染的 View，View 渲染之后返回页面给用户
     这种情况下，Controller 往往比较大，因为它要知道需要调用哪个 Model 的接口获取数据对象，还需要知道要把数据对象发送给哪个 View 去渲染。而 View 和 Model 都比较简单纯粹，他们只需要根据 Controller 的要求完成他们自己的任务即可
@@ -34,7 +34,7 @@ tags:
 
 1. MVP 包含的三层为 Model、View 和 Presenter，它往往被用在用户的界面设计当中。
 
-    <img src="../image/MVP设计.png" style="zoom:33%;" />
+    <img src="./image/MVP设计.png" style="zoom:33%;" />
 
     - Model 的职责没有太大的变化，依然是业务数据的唯一来源
     - View 变成了纯粹的被动视图，它被动地响应用户的操作来触发事件，并将其转交给 Presenter；反过来，它的视图界面被动地由 Presenter 来发起更新
@@ -44,7 +44,7 @@ tags:
 
 2. MVVM 是在 MVP 的基础上，将职责最多的 Presenter 替换成了 ViewModel，它实际是一个数据对象的转换器，将从 Model 中取得的数据简化，转换为 View 可以识别的形式返回给 View。View 和 ViewModel 实行双向绑定，成为命运共同体，即 View 的变化会自动反馈到 ViewModel 中，反之亦然
 
-    <img src="../image/MVVM设计.png" alt="s" style="zoom:33%;" />
+    <img src="./image/MVVM设计.png" alt="s" style="zoom:33%;" />
 
 ### 一、框架解析定义
 
@@ -109,44 +109,3 @@ MVC 架构中的视图是指将数据有目的、按规则呈现出来的组件�
 https://www.jianshu.com/p/4b754ea48a40
 
  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
