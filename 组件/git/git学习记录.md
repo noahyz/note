@@ -78,9 +78,6 @@ tags:
 #### 多人协作
 
 - 当从远程仓库克隆时，实际上Git自动把本地的master分支和远程的master分支对应起来了。并且，远程仓库的默认名称时origin。查看远程库的信息，使用 git remote或者 git remote -v
-
 - 推送分支时，就是把该分支上的所有本地提交推送到远程库。推送时，要指定本地分支，这样，Git 就会把分支推送到远程库对应的远程分支上。例如：git push origin dev
-
 - 当其他人从远程库clone 时，默认情况下，就只能看到本地的master分支。如果要与远程origin的dev分支建立联系，就必须创建本地的dev分支。git checkout -b dev origin/dev.
-
-- 当多个人同时向dev 分支推送提交时，会出现冲突，这时先用 git pull 把最新的提交从 origin/dev 下抓下来，然后在本地合并，解决冲突，在推送。如果git pull 失败，是因为没有指定本地dev分支与远程origin/dev 分支的链接。git branch --set-upstream-to=origin/dev dev
+- 当多个人同时向dev 分支推送提交时，会出现冲突，这时先用 git pull 把最新的提交从 origin/dev 下抓下来，然后在本地合并，解决冲突，在推送。如果git pull 失败，是因为没有指定本地dev分支与远程origin/dev 分支的链接。`git branch --set-upstream-to=origin/dev dev`
