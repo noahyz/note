@@ -217,26 +217,3 @@ leaf.snowflake.port=2181
 <img src="./image/tinyid.jpg" style="zoom:50%;" />
 
 `Tinyid`提供`http`和`tinyid-client`两种方式接入
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
