@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<!-- saved from url=(0084)https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&compact=1 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}</style>
+  
+  <title>KityMinder Editor - Powered By FEX</title>
+ <link href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/favicon.ico" type="image/x-icon" rel="shortcut icon">
+<script>
+    	// 错误捕获程序
+		// Adds basic error handling
+    const ERROR_NAMESPACE='naotu'
+    const ERROR_EVENT_NAME='vodka.iframe.error'
+		function sendMsg(obj) {
+    		window.parent.postMessage(JSON.stringify(obj), '*');
+  			}
+		window.onerror = function(errorMessage, scriptURI, lineNumber,colNumber,detail)
+		{
+			sendMsg({
+				event:ERROR_EVENT_NAME,
+                loggerKeyPreFix:ERROR_NAMESPACE,
+				error:errorMessage,
+				PageUrl:window.location.href,
+				scriptURI,
+				lineNumber,
+				colNumber,
+				detail,
+				source:`${ERROR_NAMESPACE}.js`
+			})
+			return true
+		};
+		// 避免第三方代码内部修改onerror
+		Object.defineProperty(window,'onerror',{
+        set:()=>{ }
+    })
+	window.addEventListener('error',(e)=>{
+		let target = e.target || e.srcElement;
+		let isElementTarget = target instanceof HTMLElement;
+		// 仅监测静态资源错误
+		if (isElementTarget) {
+			const {target:{src,localName,href}}=e
+			sendMsg({
+				event:ERROR_EVENT_NAME,
+                loggerKeyPreFix:ERROR_NAMESPACE,
+				error:'static resource load error',
+				PageUrl:window.location.href,
+				scriptURI:localName=='link'?href:src,
+				source:`${ERROR_NAMESPACE}.load`	
+			})
+		}
+	},true)
+</script>
+  <!-- bower:css -->
+  <link rel="stylesheet" href="./bootstrap.min.css">
+  <link rel="stylesheet" href="./codemirror(1).css">
+  <link rel="stylesheet" href="./hotbox.css">
+  <link rel="stylesheet" href="./kityminder.core.css">
+  <link rel="stylesheet" href="./color-picker.min.css">
+  <!-- endbower -->
+
+  <link rel="stylesheet" href="./kityminder.editor.min.css">
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    h1.editor-title {
+      background: #393f4f;
+      color: white;
+      margin: 0;
+      height: 40px;
+      font-size: 14px;
+      line-height: 40px;
+      font-family: "Hiragino Sans GB", "Arial", "Microsoft Yahei";
+      font-weight: normal;
+      padding: 0 20px;
+    }
+
+    div.minder-editor-container {
+      position: absolute;
+      top: 40px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  </style>
+<link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style><style data-id="immersive-translate-input-injected-css">.immersive-translate-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2147483647;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.immersive-translate-attach-loading::after {
+  content: " ";
+
+  --loading-color: #f78fb6;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: block;
+  margin: 12px auto;
+  position: relative;
+  color: white;
+  left: -100px;
+  box-sizing: border-box;
+  animation: immersiveTranslateShadowRolling 1.5s linear infinite;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-2000%, -50%);
+  z-index: 100;
+}
+
+.immersive-translate-loading-spinner {
+  vertical-align: middle !important;
+  width: 10px !important;
+  height: 10px !important;
+  display: inline-block !important;
+  margin: 0 4px !important;
+  border: 2px rgba(221, 244, 255, 0.6) solid !important;
+  border-top: 2px rgba(0, 0, 0, 0.375) solid !important;
+  border-left: 2px rgba(0, 0, 0, 0.375) solid !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  -webkit-animation: immersive-translate-loading-animation 0.6s infinite linear !important;
+  animation: immersive-translate-loading-animation 0.6s infinite linear !important;
+}
+
+@-webkit-keyframes immersive-translate-loading-animation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+@keyframes immersive-translate-loading-animation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.immersive-translate-input-loading {
+  --loading-color: #f78fb6;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: block;
+  margin: 12px auto;
+  position: relative;
+  color: white;
+  left: -100px;
+  box-sizing: border-box;
+  animation: immersiveTranslateShadowRolling 1.5s linear infinite;
+}
+
+@keyframes immersiveTranslateShadowRolling {
+  0% {
+    box-shadow: 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0),
+      0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  12% {
+    box-shadow: 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0),
+      0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  25% {
+    box-shadow: 110px 0 var(--loading-color), 100px 0 var(--loading-color),
+      0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  36% {
+    box-shadow: 120px 0 var(--loading-color), 110px 0 var(--loading-color),
+      100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  50% {
+    box-shadow: 130px 0 var(--loading-color), 120px 0 var(--loading-color),
+      110px 0 var(--loading-color), 100px 0 var(--loading-color);
+  }
+
+  62% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color),
+      120px 0 var(--loading-color), 110px 0 var(--loading-color);
+  }
+
+  75% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+      130px 0 var(--loading-color), 120px 0 var(--loading-color);
+  }
+
+  87% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+      200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color);
+  }
+
+  100% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+      200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.immersive-translate-toast {
+  display: flex;
+  position: fixed;
+  z-index: 2147483647;
+  left: 0;
+  right: 0;
+  top: 1%;
+  width: fit-content;
+  padding: 12px 20px;
+  margin: auto;
+  overflow: auto;
+  background: #fef6f9;
+  box-shadow: 0px 4px 10px 0px rgba(0, 10, 30, 0.06);
+  font-size: 15px;
+  border-radius: 8px;
+  color: #333;
+}
+
+.immersive-translate-toast-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.immersive-translate-toast-hidden {
+  margin: 0 20px 0 72px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.immersive-translate-toast-close {
+  color: #666666;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .immersive-translate-toast {
+    top: 0;
+    padding: 12px 0px 0 10px;
+  }
+  .immersive-translate-toast-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  .immersive-translate-toast-hidden {
+    margin: 10px auto;
+  }
+}
+
+.immersive-translate-dialog {
+  position: fixed;
+  z-index: 2147483647;
+  left: 0;
+  top: 0;
+  display: flex;
+  width: 300px;
+  flex-direction: column;
+  align-items: center;
+  font-size: 15px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: fit-content;
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+.immersive-translate-modal {
+  display: none;
+  position: fixed;
+  z-index: 2147483647;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  font-size: 15px;
+}
+
+.immersive-translate-modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 40px 24px 24px;
+  border-radius: 12px;
+  width: 350px;
+  font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
+    "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  position: relative;
+}
+
+@media screen and (max-width: 768px) {
+  .immersive-translate-modal-content {
+    margin: 25% auto !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .immersive-translate-modal-content {
+    width: 80vw !important;
+    margin: 20vh auto !important;
+    padding: 20px 12px 12px !important;
+  }
+
+  .immersive-translate-modal-title {
+    font-size: 14px !important;
+  }
+
+  .immersive-translate-modal-body {
+    font-size: 13px !important;
+    max-height: 60vh !important;
+  }
+
+  .immersive-translate-btn {
+    font-size: 13px !important;
+    padding: 8px 16px !important;
+    margin: 0 4px !important;
+  }
+
+  .immersive-translate-modal-footer {
+    gap: 6px !important;
+    margin-top: 16px !important;
+  }
+}
+
+.immersive-translate-modal .immersive-translate-modal-content-in-input {
+  max-width: 500px;
+}
+.immersive-translate-modal-content-in-input .immersive-translate-modal-body {
+  text-align: left;
+  max-height: unset;
+}
+
+.immersive-translate-modal-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #333333;
+}
+
+.immersive-translate-modal-body {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333333;
+  margin-top: 24px;
+  word-break: break-all;
+}
+
+@media screen and (max-width: 768px) {
+  .immersive-translate-modal-body {
+    max-height: 250px;
+    overflow-y: auto;
+  }
+}
+
+.immersive-translate-close {
+  color: #666666;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.immersive-translate-close:hover,
+.immersive-translate-close:focus {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.immersive-translate-modal-footer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.immersive-translate-btn {
+  width: fit-content;
+  color: #fff;
+  background-color: #ea4c89;
+  border: none;
+  font-size: 14px;
+  margin: 0 8px;
+  padding: 9px 30px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.immersive-translate-btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.immersive-translate-btn:hover {
+  background-color: #f082ac;
+}
+.immersive-translate-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.immersive-translate-btn:disabled:hover {
+  background-color: #ea4c89;
+}
+
+.immersive-translate-link-btn {
+  background-color: transparent;
+  color: #ea4c89;
+  border: none;
+  cursor: pointer;
+  height: 30px;
+  line-height: 30px;
+}
+
+.immersive-translate-cancel-btn {
+  /* gray color */
+  background-color: rgb(89, 107, 120);
+}
+
+.immersive-translate-cancel-btn:hover {
+  background-color: hsl(205, 20%, 32%);
+}
+
+.immersive-translate-action-btn {
+  background-color: transparent;
+  color: #ea4c89;
+  border: 1px solid #ea4c89;
+}
+
+.immersive-translate-btn svg {
+  margin-right: 5px;
+}
+
+.immersive-translate-link {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  text-decoration: none;
+  color: #ea4c89;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+}
+
+.immersive-translate-primary-link {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  text-decoration: none;
+  color: #ea4c89;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+}
+
+.immersive-translate-modal input[type="radio"] {
+  margin: 0 6px;
+  cursor: pointer;
+}
+
+.immersive-translate-modal label {
+  cursor: pointer;
+}
+
+.immersive-translate-close-action {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  cursor: pointer;
+}
+
+.imt-image-status {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 16px !important;
+}
+.imt-image-status img,
+.imt-image-status svg,
+.imt-img-loading {
+  width: 28px !important;
+  height: 28px !important;
+  margin: 0 0 8px 0 !important;
+  min-height: 28px !important;
+  min-width: 28px !important;
+  position: relative !important;
+}
+.imt-img-loading {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAtFBMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////oK74hAAAAPHRSTlMABBMIDyQXHwyBfFdDMSw+OjXCb+5RG51IvV/k0rOqlGRM6KKMhdvNyZBz9MaupmxpWyj437iYd/yJVNZeuUC7AAACt0lEQVRIx53T2XKiUBCA4QYOiyCbiAsuuGBcYtxiYtT3f6/pbqoYHVFO5r+iivpo6DpAWYpqeoFfr9f90DsYAuRSWkFnPO50OgR9PwiCUFcl2GEcx+N/YBh6pvKaefHlUgZd1zVe0NbYcQjGBfzrPE8Xz8aF+71D8gG6DHFPpc4a7xFiCDuhaWgKgGIJQ3d5IMGDrpS4S5KgpIm+en9f6PlAhKby4JwEIxlYJV9h5k5nee9GoxHJ2IDSNB0dwdad1NAxDJ/uXDHYmebdk4PdbkS58CIVHdYSUHTYYRWOJblWSyu2lmy3KNFVJNBhxcuGW4YBVCbYGRZwIooipHsNqjM4FbgOQqQqSKQQU9V8xmi1QlgHqQQ6DDBvRUVCDirs+EzGDGOQTCATgtYTnbCVLgsVgRE0T1QE0qHCFAht2z6dLvJQs3Lo2FQoDxWNUiBhaP4eRgwNkI+dAjVOA/kUrIDwf3CG8NfNOE0eiFotSuo+rBiq8tD9oY4Qzc6YJw99hl1wzpQvD7ef2M8QgnOGJfJw+EltQc+oX2yn907QB22WZcvlUpd143dqQu+8pCJZuGE4xCuPXJqqcs5sNpsI93Rmzym1k4Npk+oD1SH3/a3LOK/JpUBpWfqNySxWzCfNCUITuDG5dtuphrUJ1myeIE9bIsPiKrfqTai5WZxbhtNphYx6GEIHihyGFTI69lje/rxajdh0s0msZ0zYxyPLhYCb1CyHm9Qsd2H37Y3lugVwL9kNh8Ot8cha6fUNQ8nuXi5z9/ExsAO4zQrb/ev1yrCB7lGyQzgYDGuxq1toDN/JGvN+HyWNHKB7zEoK+PX11e12G431erGYzwmytAWU56fkMHY5JJnDRR2eZji3AwtIcrEV8Cojat/BdQ7XOwGV1e1hDjGGjXbdArm8uJZtCH5MbcctVX8A1WpqumJHwckAAAAASUVORK5CYII=");
+  background-size: 28px 28px;
+  animation: image-loading-rotate 1s linear infinite !important;
+}
+
+.imt-image-status span {
+  color: var(--bg-2, #fff) !important;
+  font-size: 14px !important;
+  line-height: 14px !important;
+  font-weight: 500 !important;
+  font-family: "PingFang SC", Arial, sans-serif !important;
+}
+
+.imt-primary-button {
+  display: flex;
+  padding: 12px 80px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  background: #ea4c89;
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  border: none;
+  cursor: pointer;
+}
+
+.imt-retry-text {
+  color: #999;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+  cursor: pointer;
+}
+
+.imt-action-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.imt-modal-content-text {
+  text-align: left;
+  color: #333;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+@keyframes image-loading-rotate {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.imt-linear-gradient-text {
+  background: linear-gradient(90deg, #00a6ff 0%, #c369ff 52.4%, #ff4590 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.imt-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imt-linear-black-btn {
+  border-radius: 50px;
+  background: linear-gradient(66deg, #222 19%, #696969 94.25%);
+  height: 48px;
+  width: 100%;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+}
+</style></head>
+
+<body ng-app="kityminderDemo" ng-controller="MainController" class="ng-scope">
+  <h1 class="editor-title" style="display: none;">KityMinder Editor - Powered By FEX</h1>
+  <div class="minder-editor-container ng-isolate-scope" on-init="initEditor(editor, minder)" style="top: 0px;"><!-- ngIf: minder --><div class="top-tab ng-scope ng-isolate-scope" top-tab="minder" editor="editor" ng-if="minder"><div class="ng-isolate-scope">
+  <ul class="nav nav-tabs" ng-class="{&#39;nav-stacked&#39;: vertical, &#39;nav-justified&#39;: justified}" ng-transclude=""><li ng-class="{active: active, disabled: disabled}" heading="思路" ng-click="toggleTopTab(&#39;idea&#39;)" select="setCurTab(&#39;idea&#39;)" class="ng-isolate-scope active">
+  <a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="select()" tab-heading-transclude="" class="ng-binding">思路</a>
+</li><li ng-class="{active: active, disabled: disabled}" heading="外观" ng-click="toggleTopTab(&#39;appearance&#39;)" select="setCurTab(&#39;appearance&#39;)" class="ng-isolate-scope">
+  <a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="select()" tab-heading-transclude="" class="ng-binding">外观</a>
+</li><li ng-class="{active: active, disabled: disabled}" heading="视图" ng-click="toggleTopTab(&#39;view&#39;)" select="setCurTab(&#39;view&#39;)" class="ng-isolate-scope">
+  <a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="select()" tab-heading-transclude="" class="ng-binding">视图</a>
+</li></ul>
+  <div class="tab-content">
+    <!-- ngRepeat: tab in tabs --><div class="tab-pane ng-scope active" ng-repeat="tab in tabs" ng-class="{active: tab.active}" tab-content-transclude="tab">
+    <div class="km-btn-group do-group ng-isolate-scope" editor="editor"><div class="km-btn-item undo" ng-disabled="editor.history.hasUndo() == false" ng-click="editor.history.hasUndo() == false || editor.history.undo();" title="撤销 (Ctrl + Z)" disabled="disabled"><i class="km-btn-icon"></i></div><div class="km-btn-item redo" ng-disabled="editor.history.hasRedo() == false" ng-click="editor.history.hasRedo() == false || editor.history.redo()" title="重做 (Ctrl + Y)" disabled="disabled"><i class="km-btn-icon"></i></div></div><div class="km-btn-group append-group ng-isolate-scope" minder="minder"><div class="km-btn-item append-child-node" ng-disabled="minder.queryCommandState(&#39;AppendChildNode&#39;) === -1" ng-click="minder.queryCommandState(&#39;AppendChildNode&#39;) === -1 || execCommand(&#39;AppendChildNode&#39;)" title="插入下级主题"><i class="km-btn-icon"></i> <span class="km-btn-caption ng-binding">插入下级主题</span></div><div class="km-btn-item append-parent-node" ng-disabled="minder.queryCommandState(&#39;AppendParentNode&#39;) === -1" ng-click="minder.queryCommandState(&#39;AppendParentNode&#39;) === -1 || execCommand(&#39;AppendParentNode&#39;)" title="插入上级主题" disabled="disabled"><i class="km-btn-icon"></i> <span class="km-btn-caption ng-binding">插入上级主题</span></div><div class="km-btn-item append-sibling-node" ng-disabled="minder.queryCommandState(&#39;AppendSiblingNode&#39;) === -1" ng-click="minder.queryCommandState(&#39;AppendSiblingNode&#39;) === -1 ||execCommand(&#39;AppendSiblingNode&#39;)" title="插入同级主题"><i class="km-btn-icon"></i> <span class="km-btn-caption ng-binding">插入同级主题</span></div></div><div class="km-btn-group arrange-group ng-isolate-scope" minder="minder"><div class="km-btn-item arrange-up" ng-disabled="minder.queryCommandState(&#39;ArrangeUp&#39;) === -1" ng-click="minder.queryCommandState(&#39;ArrangeUp&#39;) === -1 || minder.execCommand(&#39;ArrangeUp&#39;)" title="上移"><i class="km-btn-icon"></i> <span class="km-btn-caption ng-binding">上移</span></div><div class="km-btn-item arrange-down" ng-disabled="minder.queryCommandState(&#39;ArrangeDown&#39;) === -1" ng-click="minder.queryCommandState(&#39;ArrangeDown&#39;) === -1 || minder.execCommand(&#39;ArrangeDown&#39;);" title="下移"><i class="km-btn-icon"></i> <span class="km-btn-caption ng-binding">下移</span></div></div><div class="km-btn-group operation-group ng-isolate-scope" minder="minder"><div class="km-btn-item edit-node" ng-disabled="minder.queryCommandState(&#39;text&#39;) === -1" ng-click="minder.queryCommandState(&#39;text&#39;) === -1 || editNode()" title="编辑"><i class="km-btn-icon"></i> <span class="km-btn-caption ng-binding">编辑</span></div><div class="km-btn-item remove-node" ng-disabled="minder.queryCommandState(&#39;RemoveNode&#39;) === -1" ng-click="minder.queryCommandState(&#39;RemoveNode&#39;) === -1 || minder.execCommand(&#39;RemoveNode&#39;);" title="删除" disabled="disabled"><i class="km-btn-icon"></i> <span class="km-btn-caption ng-binding">删除</span></div></div><div class="btn-group-vertical ng-isolate-scope" dropdown="" is-open="isopen" minder="minder" style="display: none;"><button type="button" class="btn btn-default hyperlink" title="链接" ng-class="{&#39;active&#39;: isopen}" ng-click="addHyperlink()" ng-disabled="minder.queryCommandState(&#39;HyperLink&#39;) === -1"></button> <button type="button" class="btn btn-default hyperlink-caption dropdown-toggle" ng-disabled="minder.queryCommandState(&#39;HyperLink&#39;) === -1" title="链接" dropdown-toggle="" aria-haspopup="true" aria-expanded="false"><span class="caption ng-binding">链接</span> <span class="caret"></span> <span class="sr-only ng-binding">链接</span></button><ul class="dropdown-menu" role="menu"><li><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="addHyperlink()" class="ng-binding">插入链接</a></li><li><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="minder.execCommand(&#39;HyperLink&#39;, null)" class="ng-binding">移除已有链接</a></li></ul></div><div class="btn-group-vertical ng-isolate-scope" dropdown="" is-open="isopen" minder="minder" style="display: none;"><button type="button" class="btn btn-default image-btn" title="图片" ng-class="{&#39;active&#39;: isopen}" ng-click="addImage()" ng-disabled="minder.queryCommandState(&#39;Image&#39;) === -1"></button> <button type="button" class="btn btn-default image-btn-caption dropdown-toggle" ng-disabled="minder.queryCommandState(&#39;Image&#39;) === -1" title="图片" dropdown-toggle="" aria-haspopup="true" aria-expanded="false"><span class="caption ng-binding">图片</span> <span class="caret"></span> <span class="sr-only ng-binding">图片</span></button><ul class="dropdown-menu" role="menu"><li><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="addImage()" class="ng-binding">插入图片</a></li><li><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="minder.execCommand(&#39;Image&#39;, &#39;&#39;)" class="ng-binding">移除已有图片</a></li></ul></div><div class="btn-group-vertical note-btn-group ng-isolate-scope" dropdown="" is-open="isopen" minder="minder" style="display: none;"><button type="button" class="btn btn-default note-btn" title="备注" ng-class="{&#39;active&#39;: isopen}" ng-click="addNote()" ng-disabled="minder.queryCommandState(&#39;note&#39;) === -1"></button> <button type="button" class="btn btn-default note-btn-caption dropdown-toggle" ng-disabled="minder.queryCommandState(&#39;note&#39;) === -1" title="备注" dropdown-toggle="" aria-haspopup="true" aria-expanded="false"><span class="caption ng-binding">备注</span> <span class="caret"></span> <span class="sr-only ng-binding">备注</span></button><ul class="dropdown-menu" role="menu"><li><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="addNote()" class="ng-binding">插入备注</a></li><li><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="minder.execCommand(&#39;note&#39;, null)" class="ng-binding">移除已有备注</a></li></ul></div><ul class="km-priority tool-group ng-isolate-scope" ng-disabled="commandDisabled" minder="minder"><!-- ngRepeat: p in priorities --><li class="km-priority-item tool-group-item ng-scope" ng-repeat="p in priorities" ng-click="commandDisabled || minder.execCommand(&#39;priority&#39;, p)" ng-class="{ active: commandValue == p }" title="移除优先级"><div class="km-priority-icon tool-group-icon priority-0"></div></li><!-- end ngRepeat: p in priorities --><li class="km-priority-item tool-group-item ng-scope" ng-repeat="p in priorities" ng-click="commandDisabled || minder.execCommand(&#39;priority&#39;, p)" ng-class="{ active: commandValue == p }" title="优先级1"><div class="km-priority-icon tool-group-icon priority-1"></div></li><!-- end ngRepeat: p in priorities --><li class="km-priority-item tool-group-item ng-scope" ng-repeat="p in priorities" ng-click="commandDisabled || minder.execCommand(&#39;priority&#39;, p)" ng-class="{ active: commandValue == p }" title="优先级2"><div class="km-priority-icon tool-group-icon priority-2"></div></li><!-- end ngRepeat: p in priorities --><li class="km-priority-item tool-group-item ng-scope" ng-repeat="p in priorities" ng-click="commandDisabled || minder.execCommand(&#39;priority&#39;, p)" ng-class="{ active: commandValue == p }" title="优先级3"><div class="km-priority-icon tool-group-icon priority-3"></div></li><!-- end ngRepeat: p in priorities --><li class="km-priority-item tool-group-item ng-scope" ng-repeat="p in priorities" ng-click="commandDisabled || minder.execCommand(&#39;priority&#39;, p)" ng-class="{ active: commandValue == p }" title="优先级4"><div class="km-priority-icon tool-group-icon priority-4"></div></li><!-- end ngRepeat: p in priorities --><li class="km-priority-item tool-group-item ng-scope" ng-repeat="p in priorities" ng-click="commandDisabled || minder.execCommand(&#39;priority&#39;, p)" ng-class="{ active: commandValue == p }" title="优先级5"><div class="km-priority-icon tool-group-icon priority-5"></div></li><!-- end ngRepeat: p in priorities --><li class="km-priority-item tool-group-item ng-scope" ng-repeat="p in priorities" ng-click="commandDisabled || minder.execCommand(&#39;priority&#39;, p)" ng-class="{ active: commandValue == p }" title="优先级6"><div class="km-priority-icon tool-group-icon priority-6"></div></li><!-- end ngRepeat: p in priorities --><li class="km-priority-item tool-group-item ng-scope" ng-repeat="p in priorities" ng-click="commandDisabled || minder.execCommand(&#39;priority&#39;, p)" ng-class="{ active: commandValue == p }" title="优先级7"><div class="km-priority-icon tool-group-icon priority-7"></div></li><!-- end ngRepeat: p in priorities --><li class="km-priority-item tool-group-item ng-scope" ng-repeat="p in priorities" ng-click="commandDisabled || minder.execCommand(&#39;priority&#39;, p)" ng-class="{ active: commandValue == p }" title="优先级8"><div class="km-priority-icon tool-group-icon priority-8"></div></li><!-- end ngRepeat: p in priorities --><li class="km-priority-item tool-group-item ng-scope" ng-repeat="p in priorities" ng-click="commandDisabled || minder.execCommand(&#39;priority&#39;, p)" ng-class="{ active: commandValue == p }" title="优先级9"><div class="km-priority-icon tool-group-icon priority-9"></div></li><!-- end ngRepeat: p in priorities --></ul><ul class="km-progress tool-group ng-isolate-scope" ng-disabled="commandDisabled" minder="minder"><!-- ngRepeat: p in progresses --><li class="km-progress-item tool-group-item ng-scope" ng-repeat="p in progresses" ng-click="commandDisabled || minder.execCommand(&#39;progress&#39;, p)" ng-class="{ active: commandValue == p }" title="移除进度"><div class="km-progress-icon tool-group-icon progress-0"></div></li><!-- end ngRepeat: p in progresses --><li class="km-progress-item tool-group-item ng-scope" ng-repeat="p in progresses" ng-click="commandDisabled || minder.execCommand(&#39;progress&#39;, p)" ng-class="{ active: commandValue == p }" title="未开始"><div class="km-progress-icon tool-group-icon progress-1"></div></li><!-- end ngRepeat: p in progresses --><li class="km-progress-item tool-group-item ng-scope" ng-repeat="p in progresses" ng-click="commandDisabled || minder.execCommand(&#39;progress&#39;, p)" ng-class="{ active: commandValue == p }" title="完成1/8"><div class="km-progress-icon tool-group-icon progress-2"></div></li><!-- end ngRepeat: p in progresses --><li class="km-progress-item tool-group-item ng-scope" ng-repeat="p in progresses" ng-click="commandDisabled || minder.execCommand(&#39;progress&#39;, p)" ng-class="{ active: commandValue == p }" title="完成2/8"><div class="km-progress-icon tool-group-icon progress-3"></div></li><!-- end ngRepeat: p in progresses --><li class="km-progress-item tool-group-item ng-scope" ng-repeat="p in progresses" ng-click="commandDisabled || minder.execCommand(&#39;progress&#39;, p)" ng-class="{ active: commandValue == p }" title="完成3/8"><div class="km-progress-icon tool-group-icon progress-4"></div></li><!-- end ngRepeat: p in progresses --><li class="km-progress-item tool-group-item ng-scope" ng-repeat="p in progresses" ng-click="commandDisabled || minder.execCommand(&#39;progress&#39;, p)" ng-class="{ active: commandValue == p }" title="完成4/8"><div class="km-progress-icon tool-group-icon progress-5"></div></li><!-- end ngRepeat: p in progresses --><li class="km-progress-item tool-group-item ng-scope" ng-repeat="p in progresses" ng-click="commandDisabled || minder.execCommand(&#39;progress&#39;, p)" ng-class="{ active: commandValue == p }" title="完成5/8"><div class="km-progress-icon tool-group-icon progress-6"></div></li><!-- end ngRepeat: p in progresses --><li class="km-progress-item tool-group-item ng-scope" ng-repeat="p in progresses" ng-click="commandDisabled || minder.execCommand(&#39;progress&#39;, p)" ng-class="{ active: commandValue == p }" title="完成6/8"><div class="km-progress-icon tool-group-icon progress-7"></div></li><!-- end ngRepeat: p in progresses --><li class="km-progress-item tool-group-item ng-scope" ng-repeat="p in progresses" ng-click="commandDisabled || minder.execCommand(&#39;progress&#39;, p)" ng-class="{ active: commandValue == p }" title="完成7/8"><div class="km-progress-icon tool-group-icon progress-8"></div></li><!-- end ngRepeat: p in progresses --><li class="km-progress-item tool-group-item ng-scope" ng-repeat="p in progresses" ng-click="commandDisabled || minder.execCommand(&#39;progress&#39;, p)" ng-class="{ active: commandValue == p }" title="全部完成"><div class="km-progress-icon tool-group-icon progress-9"></div></li><!-- end ngRepeat: p in progresses --></ul><div class="resource-editor ng-isolate-scope" minder="minder"><div class="input-group"><input class="form-control ng-pristine ng-untouched ng-valid ng-valid-required" type="text" ng-model="newResourceName" ng-required="" ng-keypress="$event.keyCode == 13 &amp;&amp; addResource(newResourceName)" ng-disabled="!enabled"> <span class="input-group-btn"><button class="btn btn-default" ng-click="addResource(newResourceName)" ng-disabled="!enabled">添加</button></span></div><div class="resource-dropdown clearfix" id="resource-dropdown"><ul class="km-resource" ng-init="resourceListOpen = false" ng-class="{&#39;open&#39;: resourceListOpen}"><!-- ngRepeat: resource in used --></ul><div class="resource-caret" click-anywhere-but-here="resourceListOpen = false" is-active="resourceListOpen" ng-click="resourceListOpen = !resourceListOpen"><span class="caret"></span></div></div></div></div><!-- end ngRepeat: tab in tabs --><div class="tab-pane ng-scope" ng-repeat="tab in tabs" ng-class="{active: tab.active}" tab-content-transclude="tab">
+    <div class="inline-directive dropdown temp-panel ng-isolate-scope" dropdown="" on-toggle="toggled(open)" minder="minder"><div class="dropdown-toggle current-temp-item" ng-disabled="minder.queryCommandState(&#39;template&#39;) === -1" dropdown-toggle="" aria-haspopup="true" aria-expanded="false"><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" class="temp-item default" title="思维导图"></a> <span class="caret"></span></div><ul class="dropdown-menu temp-list"><!-- ngRepeat: (key, templateObj) in templateList --><li ng-repeat="(key, templateObj) in templateList" class="temp-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;template&#39;, key);" class="temp-item default temp-item-selected" ng-class="{ &#39;temp-item-selected&#39; : key == minder.queryCommandValue(&#39;template&#39;) }" title="思维导图"></a></li><!-- end ngRepeat: (key, templateObj) in templateList --><li ng-repeat="(key, templateObj) in templateList" class="temp-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;template&#39;, key);" class="temp-item filetree" ng-class="{ &#39;temp-item-selected&#39; : key == minder.queryCommandValue(&#39;template&#39;) }" title="目录组织图"></a></li><!-- end ngRepeat: (key, templateObj) in templateList --><li ng-repeat="(key, templateObj) in templateList" class="temp-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;template&#39;, key);" class="temp-item fish-bone" ng-class="{ &#39;temp-item-selected&#39; : key == minder.queryCommandValue(&#39;template&#39;) }" title="鱼骨头图"></a></li><!-- end ngRepeat: (key, templateObj) in templateList --><li ng-repeat="(key, templateObj) in templateList" class="temp-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;template&#39;, key);" class="temp-item right" ng-class="{ &#39;temp-item-selected&#39; : key == minder.queryCommandValue(&#39;template&#39;) }" title="逻辑结构图"></a></li><!-- end ngRepeat: (key, templateObj) in templateList --><li ng-repeat="(key, templateObj) in templateList" class="temp-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;template&#39;, key);" class="temp-item structure" ng-class="{ &#39;temp-item-selected&#39; : key == minder.queryCommandValue(&#39;template&#39;) }" title="组织结构图"></a></li><!-- end ngRepeat: (key, templateObj) in templateList --><li ng-repeat="(key, templateObj) in templateList" class="temp-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;template&#39;, key);" class="temp-item tianpan" ng-class="{ &#39;temp-item-selected&#39; : key == minder.queryCommandValue(&#39;template&#39;) }" title="天盘图"></a></li><!-- end ngRepeat: (key, templateObj) in templateList --></ul></div><div class="dropdown theme-panel" dropdown="" minder="minder"><div class="dropdown-toggle theme-item-selected" dropdown-toggle="" ng-disabled="minder.queryCommandState(&#39;theme&#39;) === -1" aria-haspopup="true" aria-expanded="false"><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" class="theme-item ng-binding" ng-style="getThemeThumbStyle(minder.queryCommandValue(&#39;theme&#39;))" title="天空蓝" style="color: white; border-radius: 2.5px; background: rgb(115, 161, 191);">天空蓝</a> <span class="caret"></span></div><ul class="dropdown-menu theme-list"><!-- ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="脑图经典" style="color: rgb(68, 51, 0); border-radius: 15px; background: rgb(233, 223, 152);">脑图经典</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="紧凑经典" style="color: rgb(68, 51, 0); border-radius: 15px; background: rgb(233, 223, 152);">紧凑经典</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="天空蓝" style="color: white; border-radius: 2.5px; background: rgb(115, 161, 191);">天空蓝</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="紧凑蓝" style="color: white; border-radius: 2.5px; background: rgb(115, 161, 191);">紧凑蓝</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="文艺绿" style="color: white; border-radius: 2.5px; background: rgb(115, 191, 118);">文艺绿</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="紧凑绿" style="color: white; border-radius: 2.5px; background: rgb(115, 191, 118);">紧凑绿</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="脑残粉" style="color: white; border-radius: 2.5px; background: rgb(191, 115, 148);">脑残粉</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="紧凑粉" style="color: white; border-radius: 2.5px; background: rgb(191, 115, 148);">紧凑粉</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="浪漫紫" style="color: white; border-radius: 2.5px; background: rgb(123, 115, 191);">浪漫紫</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="紧凑紫" style="color: white; border-radius: 2.5px; background: rgb(123, 115, 191);">紧凑紫</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="清新红" style="color: white; border-radius: 2.5px; background: rgb(191, 115, 115);">清新红</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="紧凑红" style="color: white; border-radius: 2.5px; background: rgb(191, 115, 115);">紧凑红</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="泥土黄" style="color: white; border-radius: 2.5px; background: rgb(191, 147, 115);">泥土黄</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="紧凑黄" style="color: white; border-radius: 2.5px; background: rgb(191, 147, 115);">紧凑黄</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="温柔冷光" style="color: rgb(68, 51, 0); border-radius: 2.5px; background: rgb(233, 223, 152);">温柔冷光</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="紧凑冷光" style="color: rgb(68, 51, 0); border-radius: 2.5px; background: rgb(233, 223, 152);">紧凑冷光</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="经典天盘" style="color: rgb(68, 51, 0); border-radius: 15px; background: rgb(233, 223, 152);">经典天盘</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="紧凑天盘" style="color: rgb(68, 51, 0); border-radius: 15px; background: rgb(233, 223, 152);">紧凑天盘</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="鱼骨图" style="color: rgb(68, 51, 0); border-radius: 50px; background: rgb(233, 223, 152);">鱼骨图</a></li><!-- end ngRepeat: key in themeKeyList --><li ng-repeat="key in themeKeyList" class="theme-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;theme&#39;, key);" class="theme-item ng-binding" ng-style="getThemeThumbStyle(key)" title="线框">线框</a></li><!-- end ngRepeat: key in themeKeyList --></ul></div><div class="inline-directive readjust-layout ng-isolate-scope" minder="minder"><a ng-click="minder.queryCommandState(&#39;resetlayout&#39;) === -1 || minder.execCommand(&#39;resetlayout&#39;)" class="btn-wrap" ng-disabled="minder.queryCommandState(&#39;resetlayout&#39;) === -1"><span class="btn-icon reset-layout-icon"></span> <span class="btn-label ng-binding">整理布局</span></a></div><div class="inline-directive style-operator ng-isolate-scope" minder="minder"><a ng-click="minder.queryCommandState(&#39;clearstyle&#39;) === -1 || minder.execCommand(&#39;clearstyle&#39;)" class="btn-wrap clear-style" ng-disabled="minder.queryCommandState(&#39;clearstyle&#39;) === -1" disabled="disabled"><span class="btn-icon clear-style-icon"></span> <span class="btn-label ng-binding">清除样式</span></a><div class="s-btn-group-vertical"><a class="s-btn-wrap" href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="minder.queryCommandState(&#39;copystyle&#39;) === -1 || minder.execCommand(&#39;copystyle&#39;)" ng-disabled="minder.queryCommandState(&#39;copystyle&#39;) === -1" disabled="disabled"><span class="s-btn-icon copy-style-icon"></span> <span class="s-btn-label ng-binding">复制样式</span></a> <a class="s-btn-wrap paste-style-wrap" href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="minder.queryCommandState(&#39;pastestyle&#39;) === -1 || minder.execCommand(&#39;pastestyle&#39;)" ng-disabled="minder.queryCommandState(&#39;pastestyle&#39;) === -1" disabled="disabled"><span class="s-btn-icon paste-style-icon"></span> <span class="s-btn-label ng-binding">粘贴样式</span></a></div></div><div class="inline-directive font-operator ng-isolate-scope" minder="minder"><div class="dropdown font-family-list" dropdown=""><div class="dropdown-toggle current-font-item" dropdown-toggle="" ng-disabled="minder.queryCommandState(&#39;fontfamily&#39;) === -1" aria-haspopup="true" aria-expanded="false"><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" class="current-font-family ng-binding" title="字体">字体</a> <span class="caret"></span></div><ul class="dropdown-menu font-list"><!-- ngRepeat: f in fontFamilyList --><li ng-repeat="f in fontFamilyList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontfamily&#39;, f.val)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontfamily&#39;) }" ng-style="{&#39;font-family&#39;: f.val }" style="font-family: 宋体, SimSun;">宋体</a></li><!-- end ngRepeat: f in fontFamilyList --><li ng-repeat="f in fontFamilyList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontfamily&#39;, f.val)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontfamily&#39;) }" ng-style="{&#39;font-family&#39;: f.val }" style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">微软雅黑</a></li><!-- end ngRepeat: f in fontFamilyList --><li ng-repeat="f in fontFamilyList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontfamily&#39;, f.val)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontfamily&#39;) }" ng-style="{&#39;font-family&#39;: f.val }" style="font-family: 楷体, 楷体_GB2312, SimKai;">楷体</a></li><!-- end ngRepeat: f in fontFamilyList --><li ng-repeat="f in fontFamilyList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontfamily&#39;, f.val)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontfamily&#39;) }" ng-style="{&#39;font-family&#39;: f.val }" style="font-family: 黑体, SimHei;">黑体</a></li><!-- end ngRepeat: f in fontFamilyList --><li ng-repeat="f in fontFamilyList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontfamily&#39;, f.val)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontfamily&#39;) }" ng-style="{&#39;font-family&#39;: f.val }" style="font-family: 隶书, SimLi;">隶书</a></li><!-- end ngRepeat: f in fontFamilyList --><li ng-repeat="f in fontFamilyList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontfamily&#39;, f.val)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontfamily&#39;) }" ng-style="{&#39;font-family&#39;: f.val }" style="font-family: &quot;andale mono&quot;;">Andale Mono</a></li><!-- end ngRepeat: f in fontFamilyList --><li ng-repeat="f in fontFamilyList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontfamily&#39;, f.val)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontfamily&#39;) }" ng-style="{&#39;font-family&#39;: f.val }" style="font-family: arial, helvetica, sans-serif;">Arial</a></li><!-- end ngRepeat: f in fontFamilyList --><li ng-repeat="f in fontFamilyList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontfamily&#39;, f.val)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontfamily&#39;) }" ng-style="{&#39;font-family&#39;: f.val }" style="font-family: &quot;arial black&quot;, &quot;avant garde&quot;;">arialBlack</a></li><!-- end ngRepeat: f in fontFamilyList --><li ng-repeat="f in fontFamilyList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontfamily&#39;, f.val)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontfamily&#39;) }" ng-style="{&#39;font-family&#39;: f.val }" style="font-family: &quot;comic sans ms&quot;;">Comic Sans Ms</a></li><!-- end ngRepeat: f in fontFamilyList --><li ng-repeat="f in fontFamilyList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontfamily&#39;, f.val)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontfamily&#39;) }" ng-style="{&#39;font-family&#39;: f.val }" style="font-family: impact, chicago;">Impact</a></li><!-- end ngRepeat: f in fontFamilyList --><li ng-repeat="f in fontFamilyList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontfamily&#39;, f.val)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontfamily&#39;) }" ng-style="{&#39;font-family&#39;: f.val }" style="font-family: &quot;times new roman&quot;;">Times New Roman</a></li><!-- end ngRepeat: f in fontFamilyList --><li ng-repeat="f in fontFamilyList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontfamily&#39;, f.val)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontfamily&#39;) }" ng-style="{&#39;font-family&#39;: f.val }" style="font-family: sans-serif;">Sans-Serif</a></li><!-- end ngRepeat: f in fontFamilyList --></ul></div><div class="dropdown font-size-list" dropdown=""><div class="dropdown-toggle current-font-item" dropdown-toggle="" ng-disabled="minder.queryCommandState(&#39;fontsize&#39;) === -1" aria-haspopup="true" aria-expanded="false"><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" class="current-font-size ng-binding" title="字号">字号</a> <span class="caret"></span></div><ul class="dropdown-menu font-list"><!-- ngRepeat: f in fontSizeList --><li ng-repeat="f in fontSizeList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontsize&#39;, f)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontsize&#39;) }" ng-style="{&#39;font-size&#39;: f + &#39;px&#39;}" style="font-size: 10px;">10</a></li><!-- end ngRepeat: f in fontSizeList --><li ng-repeat="f in fontSizeList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontsize&#39;, f)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontsize&#39;) }" ng-style="{&#39;font-size&#39;: f + &#39;px&#39;}" style="font-size: 12px;">12</a></li><!-- end ngRepeat: f in fontSizeList --><li ng-repeat="f in fontSizeList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontsize&#39;, f)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontsize&#39;) }" ng-style="{&#39;font-size&#39;: f + &#39;px&#39;}" style="font-size: 16px;">16</a></li><!-- end ngRepeat: f in fontSizeList --><li ng-repeat="f in fontSizeList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontsize&#39;, f)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontsize&#39;) }" ng-style="{&#39;font-size&#39;: f + &#39;px&#39;}" style="font-size: 18px;">18</a></li><!-- end ngRepeat: f in fontSizeList --><li ng-repeat="f in fontSizeList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontsize&#39;, f)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontsize&#39;) }" ng-style="{&#39;font-size&#39;: f + &#39;px&#39;}" style="font-size: 24px;">24</a></li><!-- end ngRepeat: f in fontSizeList --><li ng-repeat="f in fontSizeList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontsize&#39;, f)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontsize&#39;) }" ng-style="{&#39;font-size&#39;: f + &#39;px&#39;}" style="font-size: 32px;">32</a></li><!-- end ngRepeat: f in fontSizeList --><li ng-repeat="f in fontSizeList" class="font-item-wrap ng-scope"><a ng-click="minder.execCommand(&#39;fontsize&#39;, f)" class="font-item ng-binding" ng-class="{ &#39;font-item-selected&#39; : f == minder.queryCommandValue(&#39;fontsize&#39;) }" ng-style="{&#39;font-size&#39;: f + &#39;px&#39;}" style="font-size: 48px;">48</a></li><!-- end ngRepeat: f in fontSizeList --></ul></div><span class="s-btn-icon font-bold" ng-click="minder.queryCommandState(&#39;bold&#39;) === -1 || minder.execCommand(&#39;bold&#39;)" ng-class="{&#39;font-bold-selected&#39; : minder.queryCommandState(&#39;bold&#39;) == 1}" ng-disabled="minder.queryCommandState(&#39;bold&#39;) === -1"></span> <span class="s-btn-icon font-italics" ng-click="minder.queryCommandState(&#39;italic&#39;) === -1 || minder.execCommand(&#39;italic&#39;)" ng-class="{&#39;font-italics-selected&#39; : minder.queryCommandState(&#39;italic&#39;) == 1}" ng-disabled="minder.queryCommandState(&#39;italic&#39;) === -1"></span><div class="font-color-wrap"><span class="quick-font-color" ng-click="minder.queryCommandState(&#39;forecolor&#39;) === -1 || minder.execCommand(&#39;forecolor&#39;, foreColor)" ng-disabled="minder.queryCommandState(&#39;forecolor&#39;) === -1">A</span> <span color-picker="" class="font-color ng-isolate-scope" set-color="setDefaultColor()" ng-disabled="minder.queryCommandState(&#39;forecolor&#39;) === -1"><span class="caret"></span></span> <span class="font-color-preview" ng-style="{ &#39;background-color&#39;: foreColor }" ng-click="minder.queryCommandState(&#39;forecolor&#39;) === -1 || minder.execCommand(&#39;forecolor&#39;, foreColor)" ng-disabled="minder.queryCommandState(&#39;forecolor&#39;) === -1" style="background-color: white;"></span></div><div class="inline-directive bg-color-wrap ng-isolate-scope" minder="minder"><span class="quick-bg-color" ng-click="minder.queryCommandState(&#39;background&#39;) === -1 || minder.execCommand(&#39;background&#39;, bgColor)" ng-disabled="minder.queryCommandState(&#39;background&#39;) === -1"></span> <span color-picker="" class="bg-color ng-isolate-scope" set-color="setDefaultBg()" ng-disabled="minder.queryCommandState(&#39;background&#39;) === -1"><span class="caret"></span></span> <span class="bg-color-preview" ng-style="{ &#39;background-color&#39;: bgColor }" ng-click="minder.queryCommandState(&#39;background&#39;) === -1 || minder.execCommand(&#39;background&#39;, bgColor)" ng-disabled="minder.queryCommandState(&#39;background&#39;) === -1" style="background-color: rgb(115, 161, 191);"></span></div></div></div><!-- end ngRepeat: tab in tabs --><div class="tab-pane ng-scope" ng-repeat="tab in tabs" ng-class="{active: tab.active}" tab-content-transclude="tab">
+    <div class="btn-group-vertical ng-isolate-scope" dropdown="" is-open="isopen" minder="minder"><button type="button" class="btn btn-default expand" title="展开" ng-class="{&#39;active&#39;: isopen}" ng-click="minder.execCommand(&#39;ExpandToLevel&#39;, 9999)"></button> <button type="button" class="btn btn-default expand-caption dropdown-toggle" title="展开" dropdown-toggle="" aria-haspopup="true" aria-expanded="false"><span class="caption ng-binding">展开</span> <span class="caret"></span> <span class="sr-only ng-binding">展开</span></button><ul class="dropdown-menu" role="menu"><!-- ngRepeat: level in levels --><li ng-repeat="level in levels" class="ng-scope"><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="minder.execCommand(&#39;ExpandToLevel&#39;, level)" class="ng-binding">展开到一级节点</a></li><!-- end ngRepeat: level in levels --><li ng-repeat="level in levels" class="ng-scope"><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="minder.execCommand(&#39;ExpandToLevel&#39;, level)" class="ng-binding">展开到二级节点</a></li><!-- end ngRepeat: level in levels --><li ng-repeat="level in levels" class="ng-scope"><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="minder.execCommand(&#39;ExpandToLevel&#39;, level)" class="ng-binding">展开到三级节点</a></li><!-- end ngRepeat: level in levels --><li ng-repeat="level in levels" class="ng-scope"><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="minder.execCommand(&#39;ExpandToLevel&#39;, level)" class="ng-binding">展开到四级节点</a></li><!-- end ngRepeat: level in levels --><li ng-repeat="level in levels" class="ng-scope"><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="minder.execCommand(&#39;ExpandToLevel&#39;, level)" class="ng-binding">展开到五级节点</a></li><!-- end ngRepeat: level in levels --><li ng-repeat="level in levels" class="ng-scope"><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="minder.execCommand(&#39;ExpandToLevel&#39;, level)" class="ng-binding">展开到六级节点</a></li><!-- end ngRepeat: level in levels --></ul></div><div class="btn-group-vertical ng-isolate-scope" dropdown="" is-open="isopen" minder="minder"><button type="button" class="btn btn-default select" title="全选" ng-class="{&#39;active&#39;: isopen}" ng-click="select[&#39;all&#39;]()"></button> <button type="button" class="btn btn-default select-caption dropdown-toggle" title="全选" dropdown-toggle="" aria-haspopup="true" aria-expanded="false"><span class="caption ng-binding">全选</span> <span class="caret"></span> <span class="sr-only ng-binding">全选</span></button><ul class="dropdown-menu" role="menu"><!-- ngRepeat: item in items --><li ng-repeat="item in items" class="ng-scope"><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="select[item]()" class="ng-binding">反选</a></li><!-- end ngRepeat: item in items --><li ng-repeat="item in items" class="ng-scope"><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="select[item]()" class="ng-binding">选择兄弟节点</a></li><!-- end ngRepeat: item in items --><li ng-repeat="item in items" class="ng-scope"><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="select[item]()" class="ng-binding">选择同级节点</a></li><!-- end ngRepeat: item in items --><li ng-repeat="item in items" class="ng-scope"><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="select[item]()" class="ng-binding">选择路径</a></li><!-- end ngRepeat: item in items --><li ng-repeat="item in items" class="ng-scope"><a href="https://docs-h2.corp.kuaishou.com/assets/vendors/naotu/index25.html?hold=1&amp;compact=1" ng-click="select[item]()" class="ng-binding">选择子树</a></li><!-- end ngRepeat: item in items --></ul></div><div class="btn-group-vertical ng-isolate-scope" dropdown="" is-open="isopen" minder="minder"><button type="button" class="btn btn-default search" title="搜索" ng-class="{&#39;active&#39;: isopen}" ng-click="enterSearch()"></button> <button type="button" class="btn btn-default search-caption dropdown-toggle" ng-click="enterSearch()" title="搜索"><span class="caption ng-binding">搜索</span> <span class="sr-only ng-binding">搜索</span></button></div></div><!-- end ngRepeat: tab in tabs -->
+  </div>
+</div></div><!-- end ngIf: minder --><!-- ngIf: minder --><div id="search" class="search-box clearfix ng-isolate-scope ng-hide" ng-show="showSearch" search-box="" minder="minder" ng-if="minder"><div class="input-group input-group-sm search-input-wrap"><input type="text" id="search-input" class="form-control search-input ng-pristine ng-untouched ng-valid" ng-model="keyword" ng-keydown="handleKeyDown($event)" aria-describedby="basic-addon2"> <span class="input-group-addon search-addon ng-binding ng-hide" id="basic-addon2" ng-show="showTip" ng-bind="&#39;第 &#39; + curIndex + &#39; 条，共 &#39; + resultNum + &#39; 条&#39;">第  条，共  条</span></div><div class="btn-group btn-group-sm prev-and-next-btn" role="group"><button type="button" class="btn btn-default" ng-click="doSearch(keyword, &#39;prev&#39;)"><span class="glyphicon glyphicon-chevron-up"></span></button> <button type="button" class="btn btn-default" ng-click="doSearch(keyword, &#39;next&#39;)"><span class="glyphicon glyphicon-chevron-down"></span></button></div><div class="close-search" ng-click="exitSearch()"><span class="glyphicon glyphicon-remove"></span></div></div><!-- end ngIf: minder --><div class="minder-editor km-editor km-view focus" style="background: rgb(251, 251, 251);"><svg id="kity_svg_6" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="100%" height="100%" style="cursor: default;"><defs id="kity_defs_7"><lineargradient id="kity_linearGradient_17" x1="0" y1="0" x2="0" y2="1"><stop id="kity_stop_18" offset="0" stop-color="rgb(255, 255, 255)"></stop><stop id="kity_stop_19" offset="1" stop-color="rgb(204, 204, 204)"></stop></lineargradient></defs><g id="kity_g_8" transform="translate(0.5, 0.5)"><g id="minder1" text-rendering="optimize-speed" transform="translate( 0 20 )"><g id="minder_connect_group1"></g><g id="minder_node1" transform="matrix( 1 0 0 1 0 0 )"><path id="node_outline1" fill="rgb(115, 161, 191)" stroke="rgb(57, 80, 96)" d="M-19,-20h102a5,5,0,0,1,5,5v30a5,5,0,0,1,-5,5h-102a5,5,0,0,1,-5,-5v-30a5,5,0,0,1,5,-5z" stroke-width="3"></path><g id="node_text1" transform="translate( 0 0 )" fill="white"><text id="kity_text_22" text-rendering="inherit" dominant-baseline="text-before-edge" font-size="16" dy="0" y="-8">中心主题</text></g></g><g id="kity_g_12"><path id="kity_path_13" fill="none" stroke="none" d="M0,0h0v0h0z"></path></g><g id="kity_g_14"><path id="kity_path_15" fill="none" stroke="none" d="M0,0h0v0h0z"></path><path id="kity_path_16" fill="none" stroke="none"></path></g></g></g></svg><div contenteditable="true" tabindex="-1" class="receiver" style="left: 1px; top: -7px;"></div><div class="hotbox"><div class="state main"><div class="ring-shape"></div><div class="center"><div class="button"><span class="label">编辑</span><span class="key">F2</span></div></div><div class="ring"><div class="button"><span class="label">前移</span><span class="key">Alt+Up</span></div><div class="button"><span class="label">下级</span><span class="key">Tab</span></div><div class="button"><span class="label">同级</span><span class="key">Enter</span></div><div class="button"><span class="label">后移</span><span class="key">Alt+Down</span></div><div class="button"><span class="label">删除</span><span class="key">Delete</span></div><div class="button"><span class="label">上级</span><span class="key">Shift+Tab</span></div></div><div class="top"><div class="button"><span class="label">撤销</span><span class="key">Ctrl + Z</span></div><div class="button"><span class="label">重做</span><span class="key">Ctrl + Y</span></div><div class="button"><span class="label">优先级</span><span class="key">P</span></div><div class="button"><span class="label">进度</span><span class="key">G</span></div></div><div class="bottom"><div class="button"><span class="label">导入节点</span><span class="key">Alt + V</span></div><div class="button"><span class="label">导出节点</span><span class="key">Alt + C</span></div></div></div><div class="state priority"><div class="ring-shape"></div><div class="center"><div class="button"><span class="label">移除</span><span class="key">Del</span></div></div><div class="ring"><div class="button"><span class="label">P1</span><span class="key">1</span></div><div class="button"><span class="label">P2</span><span class="key">2</span></div><div class="button"><span class="label">P3</span><span class="key">3</span></div><div class="button"><span class="label">P4</span><span class="key">4</span></div><div class="button"><span class="label">P5</span><span class="key">5</span></div><div class="button"><span class="label">P6</span><span class="key">6</span></div><div class="button"><span class="label">P7</span><span class="key">7</span></div><div class="button"><span class="label">P8</span><span class="key">8</span></div><div class="button"><span class="label">P9</span><span class="key">9</span></div></div><div class="top"><div class="button"><span class="label">返回</span><span class="key">esc</span></div></div><div class="bottom"></div></div><div class="state progress"><div class="ring-shape"></div><div class="center"><div class="button"><span class="label">移除</span><span class="key">Del</span></div></div><div class="ring"><div class="button"><span class="label">G0</span><span class="key">0</span></div><div class="button"><span class="label">G1</span><span class="key">1</span></div><div class="button"><span class="label">G2</span><span class="key">2</span></div><div class="button"><span class="label">G3</span><span class="key">3</span></div><div class="button"><span class="label">G4</span><span class="key">4</span></div><div class="button"><span class="label">G5</span><span class="key">5</span></div><div class="button"><span class="label">G6</span><span class="key">6</span></div><div class="button"><span class="label">G7</span><span class="key">7</span></div><div class="button"><span class="label">G8</span><span class="key">8</span></div></div><div class="top"><div class="button"><span class="label">返回</span><span class="key">esc</span></div></div><div class="bottom"></div></div></div></div><!-- ngIf: minder --><div class="km-note panel panel-default ng-isolate-scope ng-hide" ng-init="noteEditorOpen = false" ng-show="noteEditorOpen" note-editor="" minder="minder" ng-if="minder"><div class="panel-heading"><h3 class="panel-title">备注</h3><span>（<a class="help" href="https://www.zybuluo.com/techird/note/46064" target="_blank">支持 GFM 语法书写</a>）</span> <i class="close-note-editor glyphicon glyphicon-remove" ng-click="closeNoteEditor()"></i></div><div class="panel-body"><div ng-show="noteEnabled" ui-codemirror="{ onLoad: codemirrorLoaded }" ng-model="noteContent" ui-codemirror-opts="{
+                gfm: true,
+                breaks: true,
+                lineWrapping : true,
+                mode: &#39;gfm&#39;,
+                dragDrop: false,
+                lineNumbers:true
+             }" class="ng-pristine ng-untouched ng-valid"><div class="CodeMirror cm-s-default CodeMirror-wrap" style="width: 100%; height: 100%;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 33px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar" style="left: 0px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px; display: block; bottom: 0px;"><div style="min-width: 1px; height: 31px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 26px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 18.2031px;"> </div></div><div class="CodeMirror-code"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -29px; width: 29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 26px;"></div><div class="CodeMirror-gutters" style="height: 820px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div></div></div></div></div><p ng-show="!noteEnabled" class="km-note-tips ng-hide">请选择节点编辑备注</p></div></div><!-- end ngIf: minder --><!-- ngIf: minder --><div class="note-previewer ng-scope" note-previewer="" ng-if="minder"><div id="previewer-content" ng-show="showNotePreviewer" ng-style="previewerStyle" ng-bind-html="noteContent" class="ng-binding ng-hide"></div></div><!-- end ngIf: minder --><!-- ngIf: minder --><div class="navigator ng-scope ng-isolate-scope" navigator="" minder="minder" ng-if="minder"><div class="nav-bar"><div class="nav-btn zoom-in" ng-click="minder.execCommand(&#39;zoomIn&#39;)" title="放大（Ctrl+）" ng-class="{ &#39;active&#39; : getZoomRadio(zoom) == 0 }"><div class="icon"></div></div><div class="zoom-pan"><div class="origin" ng-style="{&#39;transform&#39;: &#39;translate(0, &#39; + getHeight(100) + &#39;px)&#39;}" ng-click="minder.execCommand(&#39;zoom&#39;, 100);" style="transform: translate(0px, 36.8421px);"></div><div class="indicator" ng-style="{
+             &#39;transform&#39;: &#39;translate(0, &#39; + getHeight(zoom) + &#39;px)&#39;,
+             &#39;transition&#39;: &#39;transform 200ms&#39;
+             }" style="transform: translate(0px, 36.8421px); transition: transform 200ms;"></div></div><div class="nav-btn zoom-out" ng-click="minder.execCommand(&#39;zoomOut&#39;)" title="缩小（Ctrl-）" ng-class="{ &#39;active&#39; : getZoomRadio(zoom) == 1 }"><div class="icon"></div></div><div class="nav-btn hand" ng-click="minder.execCommand(&#39;hand&#39;)" title="允许拖拽" ng-class="{ &#39;active&#39; : minder.queryCommandState(&#39;hand&#39;) == 1 }"><div class="icon"></div></div><div class="nav-btn camera" ng-click="minder.execCommand(&#39;camera&#39;, minder.getRoot(), 600);" title="定位根节点"><div class="icon"></div></div><div class="nav-btn nav-trigger active" ng-class="{&#39;active&#39; : isNavOpen}" ng-click="toggleNavOpen()" title="导航器"><div class="icon"></div></div></div><div class="nav-previewer" ng-show="isNavOpen"><svg id="kity_svg_24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="100%" height="100%" viewBox="-54.5 -50.5 173 101" style="background: rgb(251, 251, 251);"><defs id="kity_defs_25"></defs><g id="kity_g_26"><path id="kity_path_27" fill="rgb(115, 161, 191)" stroke="none" d="M-24,-20h112v40h-112z"></path><path id="kity_path_28" fill="none" stroke="none" d="M0,0"></path><path id="kity_path_29" fill="none" stroke="red" d="M0,-20h88v40h-88z" stroke-width="1%"></path></g></svg></div></div><!-- end ngIf: minder --></div>
+
+
+<script>
+  // 对 localStorage 进行兼容，主要无痕模式
+  var isLocalStorageAccessable = true;
+  try {
+    var data = localStorage.getItem('docs')
+  } catch (error) {
+    isLocalStorageAccessable = false
+  }
+  if (!isLocalStorageAccessable && Object.defineProperty) {
+    Object.defineProperty(window, 'localStorage', {
+      get() {
+        return {
+          getItem(){
+            return null
+          },
+          setItem(){},
+          length: 0,
+          removeItem(){},
+          clear() {},
+        }
+      }
+    })
+  }
+</script>
+
+<!-- bower:js -->
+<script src="./jquery.min.js"></script>
+<script src="./bootstrap.min.js"></script>
+<script src="./angular.js"></script>
+<script src="./ui-bootstrap-tpls.min.js"></script>
+<script src="./codemirror.min.js"></script>
+<script src="./xml.js"></script>
+<script src="./javascript.js"></script>
+<script src="./css.js"></script>
+<script src="./htmlmixed.js"></script>
+<script src="./markdown.js"></script>
+<script src="./overlay.js"></script>
+<script src="./gfm.js"></script>
+<script src="./ui-codemirror.min.js"></script>
+<script src="./marked.js"></script>
+<script src="./kity.min.js"></script>
+<script src="./hotbox.min.js"></script>
+<script src="./json-diff.js"></script>
+<script src="./kityminder.core.min.2.js"></script>
+<script src="./color-picker.min.js"></script>
+<!-- endbower -->
+
+<script src="./kityminder.editor.min.1.js"></script>
+<script src="./inject18.js"></script>
+
+<script>
+  angular
+    .module("kityminderDemo", ["kityminderEditor"])
+    .config(function (configProvider) {
+      configProvider.set("imageUpload", "../server/imageUpload.php");
+    })
+    .controller("MainController", function ($scope) {
+      $scope.initEditor = function (editor, minder) {
+        window.editor = editor;
+        window.minder = minder;
+        inject();
+      };
+    });
+</script>
+
+<div class="colorpicker-container ng-scope" tabindex="-1" ng-click="keepPickerOpen($event)" style="top: 2px; left: 0px;"><div class="colorpicker-toolbar"><div class="colorpicker-preview" ng-style="{ &#39;background-color&#39;: hoveredColor }" style="background-color: rgb(255, 255, 255);"></div><div class="colorpicker-clear ng-binding" ng-bind="defaultOptions.clearText" ng-click="selectColorAndClose(setColor() || defaultOptions.defaultColor)">默认颜色</div></div><!-- ngIf: latestColor.length > 0 --><div class="colorpicker-latestcolor colorpicker-colors"><!-- ngRepeat: color in latestColor --></div><div class="colorpicker-title ng-binding" ng-bind="defaultOptions.commonText">主题颜色</div><div class="colorpicker-commoncolor"><!-- ngRepeat: line in defaultOptions.commonColor --><div class="colorpicker-colors colorpicker-colors-line0" ng-repeat="line in defaultOptions.commonColor"><!-- ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(255, 255, 255); border-color: rgb(255, 255, 255);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(0, 0, 0); border-color: rgb(0, 0, 0);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(238, 236, 225); border-color: rgb(238, 236, 225);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(31, 73, 125); border-color: rgb(31, 73, 125);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(79, 129, 189); border-color: rgb(79, 129, 189);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(192, 80, 77); border-color: rgb(192, 80, 77);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(155, 187, 89); border-color: rgb(155, 187, 89);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(128, 100, 162); border-color: rgb(128, 100, 162);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(75, 172, 198); border-color: rgb(75, 172, 198);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(247, 150, 70); border-color: rgb(247, 150, 70);"></span><!-- end ngRepeat: color in line --></div><!-- end ngRepeat: line in defaultOptions.commonColor --><div class="colorpicker-colors colorpicker-colors-line1" ng-repeat="line in defaultOptions.commonColor"><!-- ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(242, 242, 242); border-color: rgb(242, 242, 242);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(128, 128, 128); border-color: rgb(128, 128, 128);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(221, 216, 194); border-color: rgb(221, 216, 194);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(198, 217, 241); border-color: rgb(198, 217, 241);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(219, 229, 241); border-color: rgb(219, 229, 241);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(242, 219, 219); border-color: rgb(242, 219, 219);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(234, 241, 221); border-color: rgb(234, 241, 221);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(229, 223, 236); border-color: rgb(229, 223, 236);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(218, 238, 243); border-color: rgb(218, 238, 243);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(253, 233, 217); border-color: rgb(253, 233, 217);"></span><!-- end ngRepeat: color in line --></div><!-- end ngRepeat: line in defaultOptions.commonColor --><div class="colorpicker-colors colorpicker-colors-line2" ng-repeat="line in defaultOptions.commonColor"><!-- ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(217, 217, 217); border-color: rgb(217, 217, 217);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(89, 89, 89); border-color: rgb(89, 89, 89);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(196, 188, 150); border-color: rgb(196, 188, 150);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(141, 179, 226); border-color: rgb(141, 179, 226);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(184, 204, 228); border-color: rgb(184, 204, 228);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(229, 184, 183); border-color: rgb(229, 184, 183);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(214, 227, 188); border-color: rgb(214, 227, 188);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(204, 192, 217); border-color: rgb(204, 192, 217);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(182, 221, 232); border-color: rgb(182, 221, 232);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(251, 212, 180); border-color: rgb(251, 212, 180);"></span><!-- end ngRepeat: color in line --></div><!-- end ngRepeat: line in defaultOptions.commonColor --><div class="colorpicker-colors colorpicker-colors-line3" ng-repeat="line in defaultOptions.commonColor"><!-- ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(191, 191, 191); border-color: rgb(191, 191, 191);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(64, 64, 64); border-color: rgb(64, 64, 64);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(147, 137, 83); border-color: rgb(147, 137, 83);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(84, 141, 212); border-color: rgb(84, 141, 212);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(149, 179, 215); border-color: rgb(149, 179, 215);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(217, 149, 148); border-color: rgb(217, 149, 148);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(194, 214, 155); border-color: rgb(194, 214, 155);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(178, 161, 199); border-color: rgb(178, 161, 199);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(146, 205, 220); border-color: rgb(146, 205, 220);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(250, 191, 143); border-color: rgb(250, 191, 143);"></span><!-- end ngRepeat: color in line --></div><!-- end ngRepeat: line in defaultOptions.commonColor --><div class="colorpicker-colors colorpicker-colors-line4" ng-repeat="line in defaultOptions.commonColor"><!-- ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(166, 166, 166); border-color: rgb(166, 166, 166);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(38, 38, 38); border-color: rgb(38, 38, 38);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(74, 68, 42); border-color: rgb(74, 68, 42);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(23, 54, 93); border-color: rgb(23, 54, 93);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(54, 95, 145); border-color: rgb(54, 95, 145);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(148, 54, 52); border-color: rgb(148, 54, 52);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(118, 146, 60); border-color: rgb(118, 146, 60);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(95, 73, 122); border-color: rgb(95, 73, 122);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(49, 132, 155); border-color: rgb(49, 132, 155);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(227, 108, 10); border-color: rgb(227, 108, 10);"></span><!-- end ngRepeat: color in line --></div><!-- end ngRepeat: line in defaultOptions.commonColor --><div class="colorpicker-colors colorpicker-colors-line5" ng-repeat="line in defaultOptions.commonColor"><!-- ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(127, 127, 127); border-color: rgb(127, 127, 127);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(13, 13, 13); border-color: rgb(13, 13, 13);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(28, 26, 16); border-color: rgb(28, 26, 16);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(15, 36, 62); border-color: rgb(15, 36, 62);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(36, 63, 96); border-color: rgb(36, 63, 96);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(98, 36, 35); border-color: rgb(98, 36, 35);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(78, 97, 40); border-color: rgb(78, 97, 40);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(63, 49, 81); border-color: rgb(63, 49, 81);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(32, 88, 103); border-color: rgb(32, 88, 103);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(151, 71, 6); border-color: rgb(151, 71, 6);"></span><!-- end ngRepeat: color in line --></div><!-- end ngRepeat: line in defaultOptions.commonColor --></div><div class="colorpicker-title ng-binding" ng-bind="defaultOptions.standardText">标准颜色</div><div class="colorpicker-standardcolor colorpicker-colors"><!-- ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(192, 0, 0); border-color: rgb(192, 0, 0);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(255, 0, 0); border-color: rgb(255, 0, 0);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(255, 192, 0); border-color: rgb(255, 192, 0);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(255, 255, 0); border-color: rgb(255, 255, 0);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(146, 208, 80); border-color: rgb(146, 208, 80);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(0, 176, 80); border-color: rgb(0, 176, 80);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(0, 176, 240); border-color: rgb(0, 176, 240);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(0, 112, 192); border-color: rgb(0, 112, 192);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(0, 32, 96); border-color: rgb(0, 32, 96);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(112, 48, 160); border-color: rgb(112, 48, 160);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --></div><!-- ngIf: isSupportNativeColorPicker --><div class="colorpicker-title colorpicker-morecolor ng-scope" ng-if="isSupportNativeColorPicker"><label for="native-color-pickerdevy7rcihcw0" ng-bind="defaultOptions.moreText" class="ng-binding">更多颜色..</label><input id="native-color-pickerdevy7rcihcw0" class="native-color-picker ng-pristine ng-untouched ng-valid" type="color" ng-model="nativeColor" ng-change="selectColor(nativeColor);"></div><!-- end ngIf: isSupportNativeColorPicker --></div><div class="colorpicker-container ng-scope" tabindex="-1" ng-click="keepPickerOpen($event)" style="top: 2px; left: 0px;"><div class="colorpicker-toolbar"><div class="colorpicker-preview" ng-style="{ &#39;background-color&#39;: hoveredColor }" style="background-color: rgb(255, 255, 255);"></div><div class="colorpicker-clear ng-binding" ng-bind="defaultOptions.clearText" ng-click="selectColorAndClose(setColor() || defaultOptions.defaultColor)">默认颜色</div></div><!-- ngIf: latestColor.length > 0 --><div class="colorpicker-latestcolor colorpicker-colors"><!-- ngRepeat: color in latestColor --></div><div class="colorpicker-title ng-binding" ng-bind="defaultOptions.commonText">主题颜色</div><div class="colorpicker-commoncolor"><!-- ngRepeat: line in defaultOptions.commonColor --><div class="colorpicker-colors colorpicker-colors-line0" ng-repeat="line in defaultOptions.commonColor"><!-- ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(255, 255, 255); border-color: rgb(255, 255, 255);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(0, 0, 0); border-color: rgb(0, 0, 0);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(238, 236, 225); border-color: rgb(238, 236, 225);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(31, 73, 125); border-color: rgb(31, 73, 125);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(79, 129, 189); border-color: rgb(79, 129, 189);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(192, 80, 77); border-color: rgb(192, 80, 77);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(155, 187, 89); border-color: rgb(155, 187, 89);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(128, 100, 162); border-color: rgb(128, 100, 162);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(75, 172, 198); border-color: rgb(75, 172, 198);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(247, 150, 70); border-color: rgb(247, 150, 70);"></span><!-- end ngRepeat: color in line --></div><!-- end ngRepeat: line in defaultOptions.commonColor --><div class="colorpicker-colors colorpicker-colors-line1" ng-repeat="line in defaultOptions.commonColor"><!-- ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(242, 242, 242); border-color: rgb(242, 242, 242);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(128, 128, 128); border-color: rgb(128, 128, 128);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(221, 216, 194); border-color: rgb(221, 216, 194);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(198, 217, 241); border-color: rgb(198, 217, 241);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(219, 229, 241); border-color: rgb(219, 229, 241);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(242, 219, 219); border-color: rgb(242, 219, 219);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(234, 241, 221); border-color: rgb(234, 241, 221);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(229, 223, 236); border-color: rgb(229, 223, 236);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(218, 238, 243); border-color: rgb(218, 238, 243);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(253, 233, 217); border-color: rgb(253, 233, 217);"></span><!-- end ngRepeat: color in line --></div><!-- end ngRepeat: line in defaultOptions.commonColor --><div class="colorpicker-colors colorpicker-colors-line2" ng-repeat="line in defaultOptions.commonColor"><!-- ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(217, 217, 217); border-color: rgb(217, 217, 217);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(89, 89, 89); border-color: rgb(89, 89, 89);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(196, 188, 150); border-color: rgb(196, 188, 150);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(141, 179, 226); border-color: rgb(141, 179, 226);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(184, 204, 228); border-color: rgb(184, 204, 228);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(229, 184, 183); border-color: rgb(229, 184, 183);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(214, 227, 188); border-color: rgb(214, 227, 188);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(204, 192, 217); border-color: rgb(204, 192, 217);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(182, 221, 232); border-color: rgb(182, 221, 232);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(251, 212, 180); border-color: rgb(251, 212, 180);"></span><!-- end ngRepeat: color in line --></div><!-- end ngRepeat: line in defaultOptions.commonColor --><div class="colorpicker-colors colorpicker-colors-line3" ng-repeat="line in defaultOptions.commonColor"><!-- ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(191, 191, 191); border-color: rgb(191, 191, 191);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(64, 64, 64); border-color: rgb(64, 64, 64);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(147, 137, 83); border-color: rgb(147, 137, 83);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(84, 141, 212); border-color: rgb(84, 141, 212);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(149, 179, 215); border-color: rgb(149, 179, 215);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(217, 149, 148); border-color: rgb(217, 149, 148);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(194, 214, 155); border-color: rgb(194, 214, 155);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(178, 161, 199); border-color: rgb(178, 161, 199);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(146, 205, 220); border-color: rgb(146, 205, 220);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(250, 191, 143); border-color: rgb(250, 191, 143);"></span><!-- end ngRepeat: color in line --></div><!-- end ngRepeat: line in defaultOptions.commonColor --><div class="colorpicker-colors colorpicker-colors-line4" ng-repeat="line in defaultOptions.commonColor"><!-- ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(166, 166, 166); border-color: rgb(166, 166, 166);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(38, 38, 38); border-color: rgb(38, 38, 38);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(74, 68, 42); border-color: rgb(74, 68, 42);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(23, 54, 93); border-color: rgb(23, 54, 93);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(54, 95, 145); border-color: rgb(54, 95, 145);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(148, 54, 52); border-color: rgb(148, 54, 52);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(118, 146, 60); border-color: rgb(118, 146, 60);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(95, 73, 122); border-color: rgb(95, 73, 122);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(49, 132, 155); border-color: rgb(49, 132, 155);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(227, 108, 10); border-color: rgb(227, 108, 10);"></span><!-- end ngRepeat: color in line --></div><!-- end ngRepeat: line in defaultOptions.commonColor --><div class="colorpicker-colors colorpicker-colors-line5" ng-repeat="line in defaultOptions.commonColor"><!-- ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(127, 127, 127); border-color: rgb(127, 127, 127);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(13, 13, 13); border-color: rgb(13, 13, 13);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(28, 26, 16); border-color: rgb(28, 26, 16);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(15, 36, 62); border-color: rgb(15, 36, 62);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(36, 63, 96); border-color: rgb(36, 63, 96);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(98, 36, 35); border-color: rgb(98, 36, 35);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(78, 97, 40); border-color: rgb(78, 97, 40);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(63, 49, 81); border-color: rgb(63, 49, 81);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(32, 88, 103); border-color: rgb(32, 88, 103);"></span><!-- end ngRepeat: color in line --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in line" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(151, 71, 6); border-color: rgb(151, 71, 6);"></span><!-- end ngRepeat: color in line --></div><!-- end ngRepeat: line in defaultOptions.commonColor --></div><div class="colorpicker-title ng-binding" ng-bind="defaultOptions.standardText">标准颜色</div><div class="colorpicker-standardcolor colorpicker-colors"><!-- ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(192, 0, 0); border-color: rgb(192, 0, 0);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(255, 0, 0); border-color: rgb(255, 0, 0);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(255, 192, 0); border-color: rgb(255, 192, 0);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(255, 255, 0); border-color: rgb(255, 255, 0);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(146, 208, 80); border-color: rgb(146, 208, 80);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(0, 176, 80); border-color: rgb(0, 176, 80);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(0, 176, 240); border-color: rgb(0, 176, 240);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(0, 112, 192); border-color: rgb(0, 112, 192);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(0, 32, 96); border-color: rgb(0, 32, 96);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --><span class="colorpicker-colors-item ng-scope" ng-repeat="color in defaultOptions.standardColor" ng-style="{&#39;background-color&#39;: color, &#39;border-color&#39;: color}" ng-click="selectColorAndClose(color)" ng-mouseover="previewColor(color)" ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)" style="background-color: rgb(112, 48, 160); border-color: rgb(112, 48, 160);"></span><!-- end ngRepeat: color in defaultOptions.standardColor --></div><!-- ngIf: isSupportNativeColorPicker --><div class="colorpicker-title colorpicker-morecolor ng-scope" ng-if="isSupportNativeColorPicker"><label for="native-color-pickerdevy7rci0uo0" ng-bind="defaultOptions.moreText" class="ng-binding">更多颜色..</label><input id="native-color-pickerdevy7rci0uo0" class="native-color-picker ng-pristine ng-untouched ng-valid" type="color" ng-model="nativeColor" ng-change="selectColor(nativeColor);"></div><!-- end ngIf: isSupportNativeColorPicker --></div><div style="padding: 0 24px;height: 32px;line-height: 32px;font-size: 14px !important;font-weight: 500; border-radius: 5px; margin-left: 20px; cursor:pointer; background-color: rgb(51,113,255,0.06); color: #3371ff;position:fixed; top:0px;right: 10px; background-color: rgb(220,230,240);z-index:3001;">退出</div><div style="padding: 0 24px;height: 32px;line-height: 32px;font-size: 14px !important;font-weight: 500; border-radius: 5px; margin-left: 20px; cursor:pointer;background-color: #3371ff; color: white; position:fixed; top:0px;right: 100px; z-index:2999;">保存</div></body><div style="display:none;"><div style="transition: all 100000s linear; height: 25px; width: 25px; background:url(https://static.yximgs.com/udata/pkg/IS-DOCS/spinner.png); background-size: contain;"></div><div></div></div></html>

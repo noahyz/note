@@ -21,3 +21,22 @@ udp 发送框架：
 
 arthas：阿尔萨斯 java 诊断工具
 
+```
+wget https://halo.corp.kuaishou.com/api/cloud-storage/v1/public-objects/user-cloud-storage/pcap%2Farthas-packaging-4.0.5-bin.zip
+
+ unzip pcap%2Farthas-packaging-4.0.5-bin.zip 
+ sh install-local.sh 
+ java -jar arthas-boot.jar
+ 
+ 
+ #查看对应方法的入参和返回值，-x 3表示展开对象的深度为3层
+watch com.example.YourClass yourMethod '{params, returnObj}' -x 3
+#查看方法耗时
+trace com.example.YourClass yourMethod
+#查看方法堆栈
+stack com.example.YourClass yourMethod
+
+thread -b
+thread -all > /tmp/all-threads.log
+```
+
