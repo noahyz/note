@@ -6,7 +6,7 @@ InnoDB 存储引擎的数据表会放在主键索引树上，主键索引是 B+ 
 
 Memory 存储引擎的数据和索引是分开的，内存表的数据部分是以数组的方式单独存放，而主键 id 索引中，存的是每个数据的位置。主键 id 是 hash 索引，索引上的 key 并不是有序的。
 
-<img src="../image/哈希索引.png" style="zoom:25%;" />
+<img src="./image/哈希索引.png" style="zoom:25%;" />
 
 因此，我们可知，我们罗列一下这两种存储引擎的区别：
 
@@ -26,7 +26,7 @@ alter table t add index btree_index using btree(id);
 
 那么，此时表的数据组织形式就变成了如下：
 
-<img src="../image/memory表增加B+树索引.png" style="zoom:25%;" />
+<img src="./image/memory表增加B+树索引.png" style="zoom:25%;" />
 
 可以看到，Memory 表会增加一个 B+ 树索引。因此可以给此表带来 B+ 树索引的优点，比如上范围查询等。
 

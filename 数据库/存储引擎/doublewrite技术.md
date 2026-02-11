@@ -10,7 +10,7 @@ title: double_write 技术
 
 因此，存在 IO 写入导致 page 损坏的风险
 
-<img src="../image/脏页刷盘.png" style="zoom:80%;" />
+<img src="./image/脏页刷盘.png" style="zoom:80%;" />
 
 ## 二、double write
 
@@ -18,7 +18,7 @@ title: double_write 技术
 
 使用 double write 来提高 innodb 的可靠性，用来解决部分写失败导致的页断裂（partial page write）
 
-<img src="../image/double-write工作流程.png" style="zoom:80%;" />
+<img src="./image/double-write工作流程.png" style="zoom:80%;" />
 
 double write 由两部分组成，一部分为内存中的 double write buffer，其大小为2MB，另一部分是磁盘上共享表空间(ibdata x)中连续的128个页，即2个区(extent)，大小也是2M。(`128 * 16K = 2M`)
 
